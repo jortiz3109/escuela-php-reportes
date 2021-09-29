@@ -2,7 +2,7 @@
 
 namespace App\Constants;
 
-class Transaction
+class Transactions
 {
     public const STATUS_REJECTED = 'Rejected';
     public const STATUS_APPROVED = 'Approved';

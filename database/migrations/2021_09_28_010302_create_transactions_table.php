@@ -1,6 +1,6 @@
 <?php
 
-use App\Constants\Transaction;
+use App\Constants\Transactions;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,7 +21,7 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger('purchase_amount');
             $table->unsignedBigInteger('platform_amount');
             $table->string('pan', 20);
-            $table->enum('status', Transaction::STATUSES)->index();
+            $table->enum('status', Transactions::STATUSES)->index();
             $table->ipAddress('ip');
             $table->foreignId('device_id')->constrained('devices');
             $table->foreignId('payer_id')->constrained('payers');
