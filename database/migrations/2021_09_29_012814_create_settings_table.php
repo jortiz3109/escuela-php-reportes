@@ -1,11 +1,10 @@
 <?php
 
-use App\Constants\ExportModels;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReportsTable extends Migration
+class CreateSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +13,15 @@ class CreateReportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reports', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->timestamp('created_at')->default(now()->toDateTimeString());
-            $table->enum('model', ExportModels::EXPORTABLE_MODELS)->index();
-            $table->enum('sender', ['email', 'sftp'])->default('email');
-            $table->string('email', 100);
+            $table->string('host', 150);
+            $table->string('port', 5);
+            $table->string('user', 50);
+            $table->string('password', 64);
+            $table->text('certificate')->nullable();
+            $table->foreignId('report_id')->constrained('reports');
         });
     }
 
@@ -30,6 +32,6 @@ class CreateReportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reports');
+        Schema::dropIfExists('settings');
     }
 }
