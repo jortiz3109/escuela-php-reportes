@@ -16,7 +16,7 @@ class CreateDevicesTable extends Migration
     {
         Schema::create('devices', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('created_at')->default(now()->toDateTimeString());
+            $table->timestamp('created_at')->nullable();
             $table->string('browser', 50)->index();
             $table->string('os', 100);
             $table->enum('device_type', Devices::TYPES);

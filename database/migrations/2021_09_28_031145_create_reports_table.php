@@ -16,7 +16,7 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('created_at')->default(now()->toDateTimeString());
+            $table->timestamp('created_at')->nullable();
             $table->enum('model', ExportModels::EXPORTABLE_MODELS)->index();
             $table->enum('sender', ['email', 'sftp'])->default('email');
             $table->string('email', 100);

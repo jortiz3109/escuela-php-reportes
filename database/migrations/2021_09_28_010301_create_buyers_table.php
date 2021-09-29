@@ -15,7 +15,7 @@ class CreateBuyersTable extends Migration
     {
         Schema::create('buyers', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('created_at')->default(now()->toDateTimeString());
+            $table->timestamp('created_at')->nullable();
             $table->string('name', 100);
             $table->string('email', 100);
         });

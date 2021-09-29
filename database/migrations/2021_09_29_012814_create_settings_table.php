@@ -15,7 +15,7 @@ class CreateSettingsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('created_at')->default(now()->toDateTimeString());
+            $table->timestamp('created_at')->nullable();
             $table->string('host', 150);
             $table->string('port', 5);
             $table->string('user', 50);

@@ -15,7 +15,7 @@ class CreatePaymentMethodsTable extends Migration
     {
         Schema::create('payment_methods', function (Blueprint $table) {
             $table->tinyIncrements('id');
-            $table->timestamps();
+            $table->timestamp('created_at')->nullable();
             $table->string('name', 50);
         });
     }

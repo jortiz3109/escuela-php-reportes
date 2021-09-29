@@ -16,7 +16,7 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('created_at')->default(now()->toDateTimeString());
+            $table->timestamp('created_at')->nullable();
             $table->string('reference', 50)->unique();
             $table->unsignedBigInteger('purchase_amount');
             $table->unsignedBigInteger('platform_amount');
