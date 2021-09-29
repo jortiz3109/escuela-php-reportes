@@ -15,11 +15,9 @@ class CreateCurrenciesTable extends Migration
     {
         Schema::create('currencies', function (Blueprint $table) {
             $table->tinyIncrements('id');
-            $table->string('name', 50)->index();
-            $table->string('alphabetic_code', 3)->unique();
-            $table->string('numeric_code', 3)->unique();
-            $table->tinyInteger('minor_unit')->nullable();
-            $table->timestamps();
+            $table->char('alphabetic_code', 3)->unique();
+            $table->char('numeric_code', 3)->unique();
+            $table->char('minor_unit', 1)->default('0');
         });
     }
 

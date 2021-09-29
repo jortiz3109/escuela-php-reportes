@@ -15,7 +15,7 @@ class CreateMerchantsTable extends Migration
     {
         Schema::create('merchants', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->timestamp('created_at')->default(now()->toDateTimeString());
             $table->string('name', 100)->unique();
             $table->string('url');
             $table->unsignedTinyInteger('country_id');

@@ -16,10 +16,10 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
+            $table->timestamp('created_at')->default(now()->toDateTimeString());
             $table->enum('model', ExportModels::EXPORTABLE_MODELS)->index();
             $table->text('cron');
             $table->string('path');
-            $table->timestamps();
         });
     }
 
