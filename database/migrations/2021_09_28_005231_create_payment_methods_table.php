@@ -6,26 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 class CreatePaymentMethodsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('payment_methods', function (Blueprint $table) {
             $table->tinyIncrements('id');
-            $table->timestamp('created_at')->nullable();
-            $table->string('name', 50);
+            $table->string('name', 50)->index();
+            $table->timestamp('created_at');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('payment_methods');
     }

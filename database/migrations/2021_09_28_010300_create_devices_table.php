@@ -7,28 +7,18 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateDevicesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('devices', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('created_at')->nullable();
             $table->string('browser', 50)->index();
             $table->string('os', 100);
             $table->enum('device_type', Devices::TYPES);
+            $table->timestamp('created_at');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('devices');
     }

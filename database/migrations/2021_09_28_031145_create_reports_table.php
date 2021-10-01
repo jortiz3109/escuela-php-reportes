@@ -8,29 +8,17 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateReportsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('created_at')->nullable();
             $table->enum('model', ExportModels::EXPORTABLE_MODELS)->index();
             $table->enum('extension', Exports::TYPES);
-            $table->enum('sender', Exports::SENDERS)->default('email');
-            $table->string('email', 100);
+            $table->timestamp('created_at');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('reports');
     }

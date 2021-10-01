@@ -6,27 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateBuyersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('buyers', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('created_at')->nullable();
             $table->string('name', 100);
-            $table->string('email', 100);
+            $table->string('email', 100)->index();
+            $table->timestamp('created_at');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('buyers');
     }

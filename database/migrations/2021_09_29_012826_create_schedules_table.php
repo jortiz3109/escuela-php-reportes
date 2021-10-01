@@ -6,30 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateSchedulesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->char('minute', 2)->default('*');
             $table->char('hour', 2)->default('*');
             $table->char('day_month', 2)->default('*');
-            $table->char('month', 3)->default('*');
-            $table->char('day_week', 3)->default('*');
+            $table->char('month', 2)->default('*');
+            $table->char('day_week', 2)->default('*');
             $table->foreignId('report_id')->constrained('reports');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('schedules');
     }
