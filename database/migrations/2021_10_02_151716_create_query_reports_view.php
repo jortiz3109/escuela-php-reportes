@@ -23,6 +23,6 @@ class CreateQueryReportsView extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('query_reports_view');
+        DB::unprepared(File::get('database/sql/DeleteQueryReportsView.sql'));
     }
 }
