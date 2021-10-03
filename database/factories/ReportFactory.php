@@ -14,6 +14,8 @@ class ReportFactory extends Factory
 
     public function definition(): array
     {
-        return [];
+        return [
+            ''
+        ];
     }
 }
