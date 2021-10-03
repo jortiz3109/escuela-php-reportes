@@ -26,7 +26,7 @@ class TransactionFactory extends Factory
             'purchase_amount' => $this->faker->numberBetween(100000, 9999999),
             'platform_amount' => $this->faker->numberBetween(1000, 999999),
             'truncated_pan' => $this->faker->creditCardNumber(),
-            'status' => $this->faker->unique()->randomElement(Transactions::STATUSES),
+            'status' => $this->faker->randomElement(Transactions::STATUSES),
             'ip' => $this->faker->ipv4(),
             'device_id' => Device::factory(),
             'payer_id' => Payer::factory(),
