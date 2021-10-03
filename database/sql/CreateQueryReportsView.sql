@@ -2,25 +2,24 @@ DROP VIEW IF EXISTS query_reports_view;
 
 CREATE VIEW query_reports_view AS
 SELECT
-    transactions.id AS transaction_id,
-    transactions.reference AS transaction_reference,
-    transactions.purchase_amount AS transaction_purchase_amount,
-    transactions.platform_amount AS transaction_platform_amount,
-    transactions.truncated_pan AS transaction_truncated_pan,
-    transactions.status AS transaction_status,
-    transactions.ip AS transaction_ip,
-    currency.alphabetic_code AS transaction_currency,
+    transactions.reference AS transactions_reference,
+    transactions.purchase_amount AS transactions_purchase_amount,
+    transactions.platform_amount AS transactions_platform_amount,
+    transactions.truncated_pan AS transactions_truncated_pan,
+    transactions.status AS transactions_status,
+    transactions.ip AS transactions_ip,
     transactions.created_at AS transaction_created_at,
-    merchant.name AS merchant_name,
-    country.alpha_3_code AS merchant_country_name,
-    payers.name AS payer_name,
-    payers.email AS payer_email,
-    buyers.name AS buyer_name,
-    buyers.email AS buyer_email,
-    pm.name AS payment_method_name,
-    device.browser AS device_browser,
-    device.os AS device_os,
-    device.device_type AS device_type
+    currency.alphabetic_code AS currencies_alphabetic_code,
+    merchant.name AS merchants_name,
+    country.alpha_3_code AS countries_alpha_3_code,
+    payers.name AS payers_name,
+    payers.email AS payers_email,
+    buyers.name AS buyers_name,
+    buyers.email AS buyers_email,
+    pm.name AS payment_methods_name,
+    device.browser AS devices_browser,
+    device.os AS devices_os,
+    device.device_type AS devices_device_type
 FROM transactions
          LEFT JOIN merchants merchant ON transactions.merchant_id = merchant.id
          LEFT JOIN countries country ON merchant.country_id = country.id
