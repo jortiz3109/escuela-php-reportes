@@ -14,6 +14,8 @@ class PaymentMethodFactory extends Factory
 
     public function definition(): array
     {
-        return [];
+        return [
+            'name' => $this->faker->unique()->creditCardType(),
+        ];
     }
 }

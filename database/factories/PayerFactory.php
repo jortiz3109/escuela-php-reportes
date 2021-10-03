@@ -14,6 +14,9 @@ class PayerFactory extends Factory
 
     public function definition(): array
     {
-        return [];
+        return [
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->email(),
+        ];
     }
 }

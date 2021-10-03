@@ -14,6 +14,9 @@ class CountryFactory extends Factory
 
     public function definition(): array
     {
-        return [];
+        return [
+            'numeric_code' => $this->faker->unique()->countryCode(),
+            'alpha_3_code' => $this->faker->unique()->countryISOAlpha3(),
+        ];
     }
 }
