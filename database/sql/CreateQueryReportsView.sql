@@ -8,7 +8,7 @@ SELECT
     transactions.truncated_pan AS transactions_truncated_pan,
     transactions.status AS transactions_status,
     transactions.ip AS transactions_ip,
-    transactions.created_at AS transaction_created_at,
+    transactions.created_at AS transactions_created_at,
     currency.alphabetic_code AS currencies_alphabetic_code,
     merchant.name AS merchants_name,
     country.alpha_3_code AS countries_alpha_3_code,
