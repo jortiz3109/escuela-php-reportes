@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Constants\ExportModels;
 use App\Constants\Fields;
 use App\Models\Field;
+use App\Models\Report;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FieldFactory extends Factory
@@ -18,7 +19,12 @@ class FieldFactory extends Factory
     {
         return [
             'name' => $this->faker->randomElement(Fields::all()),
-            'table_name' => $this->faker->randomElement(ExportModels::EXPORTABLE_MODELS)
+            'table_name' => $this->faker->randomElement(array_keys(ExportModels::EXPORTABLE_MODELS)),
+            'priority' => $this->faker->numberBetween(0, 30),
+            'order' => $this->faker->randomElement([Fields::ORDER_ASC, Fields::ORDER_DESC]),
+            'operator' => $this->faker->randomElement(Fields::OPERATORS),
+            'value' => $this->faker->dateTime(),
+            'report_id' => Report::factory(),
         ];
     }
 }
