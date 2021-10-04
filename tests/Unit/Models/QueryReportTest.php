@@ -25,26 +25,7 @@ class QueryReportTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $visa = PaymentMethod::factory()->create(['name' => 'Visa']);
-        $masterCard = PaymentMethod::factory()->create(['name' => 'MasterCard']);
-        $usd = Currency::factory()->create(['alphabetic_code' => 'USD']);
-        $cop = Currency::factory()->create(['alphabetic_code' => 'COP']);
-        $merchant1 = Merchant::factory()->create(['name' => 'Merchant 1']);
-        $merchant2 = Merchant::factory()->create(['name' => 'Merchant 2']);
-        $transactions1 = Transaction::factory(30)->create([
-            'created_at' => $this->faker->dateTimeBetween('2021-01-01', '2021-03-30'),
-            'purchase_amount' => $this->faker->numberBetween(1000, 20000),
-            'payment_method_id' => $visa->id,
-            'merchant_id' => $merchant1->id,
-            'currency_id' => $usd->id,
-        ]);
-        $transactions2 = Transaction::factory(20)->create([
-            'created_at' => $this->faker->dateTimeBetween('2021-04-01', '2021-06-30'),
-            'purchase_amount' => 100000,
-            'payment_method_id' => $masterCard->id,
-            'merchant_id' => $merchant2->id,
-            'currency_id' => $cop->id,
-        ]);
+        QueryReport::factory(20)->create();
     }
 
     /**
@@ -53,12 +34,18 @@ class QueryReportTest extends TestCase
      */
     public function aClientCanToApplyFilterToReports($fields, $expectCount): void
     {
+        // TODO crear datos a la vista desde el provider para garantizar que esos datos existan al realizar la consulta
         $reports = QueryReport::filter($fields)->get();
 
-        $this->assertTrue($reports->count(), $expectCount);
+        $this->assertEquals($reports->count(), $expectCount);
 
         foreach ($fields as $field) {
-            $this->assertContains($field->value, $reports);
+            if(is_array($field['value'])) {
+//                $this->assertContains($field['value'][0], $reports); TODO: buscar alternativa porque puede fallar en el caso que no se creen transacciones con el valor inicial y final
+//                $this->assertContains($field['value'][1], $reports);
+            } else {
+                $this->assertContains($field['value'], $reports);
+            }
         }
         $this->assertDatabaseCount('query_reports_view', 50);
     }
@@ -73,10 +60,33 @@ class QueryReportTest extends TestCase
                         'table_name' => 'transactions',
                         'operator' => Fields::OPERATOR_BT,
                         'value' => ['2021-01-01', '2021-03-30']
-                    ]
+                    ],
+                    [
+                        'name' => 'name',
+                        'table_name' => 'merchants',
+                        'operator' => Fields::OPERATOR_EQ,
+                        'value' => ['Merchant 1']
+                    ],
                 ],
                 'expectCount' => 30
-            ]
+            ],
+            'filter transactions by purchase amount equals' => [
+                'filters' => [
+                    [
+                        'name' => 'purchase_amount',
+                        'table_name' => 'transactions',
+                        'operator' => Fields::OPERATOR_EQ,
+                        'value' => 10000
+                    ],
+                    [
+                        'name' => 'name',
+                        'table_name' => 'merchants',
+                        'operator' => Fields::OPERATOR_EQ,
+                        'value' => ['Merchant 1']
+                    ],
+                ],
+                'expectCount' => 30
+            ],
         ];
     }
 }
