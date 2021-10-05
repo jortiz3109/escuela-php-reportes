@@ -4,17 +4,14 @@ namespace Tests\Unit\Models;
 
 use App\Constants\ExportModels;
 use App\Constants\Fields;
+use App\Models\Country;
 use App\Models\Currency;
-use App\Models\Field;
 use App\Models\Merchant;
 use App\Models\PaymentMethod;
 use App\Models\QueryReport;
-use App\Models\Report;
 use App\Models\Transaction;
-use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use JetBrains\PhpStorm\ArrayShape;
 use Tests\TestCase;
 
 class QueryReportTest extends TestCase
@@ -22,32 +19,73 @@ class QueryReportTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-        QueryReport::factory(20)->create();
-    }
-
     /**
      * @test
      * @dataProvider fieldProvider
      */
-    public function aClientCanToApplyFilterToReports($fields, $expectCount): void
+    public function aClientCanToApplyFilterToReports(array $fields, int $expectCount): void
     {
-        // TODO crear datos a la vista desde el provider para garantizar que esos datos existan al realizar la consulta
-        $reports = QueryReport::filter($fields)->get();
+        $usd = Currency::factory()->create(['alphabetic_code' => 'USD']);
+        $cop = Currency::factory()->create(['alphabetic_code' => 'COP']);
+        $visa = PaymentMethod::factory()->create(['name' => 'Visa']);
+        $masterCard = PaymentMethod::factory()->create(['name' => 'Mastercard']);
+        $merchant1 = Merchant::factory()->create(['name' => 'Merchant 1']);
+        $merchant2 = Merchant::factory()->create(['name' => 'Merchant 2']);
+        Transaction::factory(20)->create([
+            'created_at' => '2021-01-01',
+            'purchase_amount' => 15000,
+            'currency_id' => $usd->id,
+            'payment_method_id' => $visa->id,
+            'merchant_id' => $merchant1,
+        ]);
+        Transaction::factory(10)->create([
+            'created_at' => '2021-01-10',
+            'purchase_amount' => rand(10000, 20000),
+            'currency_id' => $usd->id,
+            'payment_method_id' => $masterCard->id,
+            'merchant_id' => $merchant1,
+        ]);
+        Transaction::factory(20)->create([
+            'created_at' => '2021-01-10',
+            'purchase_amount' => 15000,
+            'currency_id' => $cop->id,
+            'payment_method_id' => $visa->id,
+            'merchant_id' => $merchant2,
+        ]);
+        Transaction::factory()->create([
+            'created_at' => '2021-01-20',
+            'purchase_amount' => 10000,
+            'currency_id' => $usd->id,
+            'payment_method_id' => $masterCard->id,
+            'merchant_id' => $merchant2,
+        ]);
+        Transaction::factory()->create([
+            'created_at' => '2021-01-20',
+            'purchase_amount' => 20000,
+            'currency_id' => $usd->id,
+            'payment_method_id' => $masterCard->id,
+            'merchant_id' => $merchant2,
+        ]);
+        Transaction::factory(20)->create([
+            'created_at' => '2021-01-20',
+            'purchase_amount' => rand(10000, 20000),
+            'currency_id' => $usd->id,
+            'payment_method_id' => $masterCard->id,
+            'merchant_id' => $merchant2,
+        ]);
+        $reports = QueryReport::filter($fields)->get()->toArray();
 
-        $this->assertEquals($reports->count(), $expectCount);
+        $this->assertCount($expectCount, $reports);
 
-        foreach ($fields as $field) {
+       foreach ($fields as $field) {
             if(is_array($field['value'])) {
-//                $this->assertContains($field['value'][0], $reports); TODO: buscar alternativa porque puede fallar en el caso que no se creen transacciones con el valor inicial y final
-//                $this->assertContains($field['value'][1], $reports);
-            } else {
-                $this->assertContains($field['value'], $reports);
+                $this->assertNotFalse(array_search($field['value'][0], array_column($reports, $field['table_name'] . '_' . $field['name'])));
+                $this->assertNotFalse(array_search($field['value'][1], array_column($reports, $field['table_name'] . '_' . $field['name'])));
+            } elseif($field['value'] !== null) {
+                $this->assertNotFalse(array_search($field['value'], array_column($reports, $field['table_name'] . '_' . $field['name'])));
             }
         }
-        $this->assertDatabaseCount('query_reports_view', 50);
+        $this->assertDatabaseCount('query_reports_view', 72);
     }
 
     public function fieldProvider(): array
@@ -55,38 +93,31 @@ class QueryReportTest extends TestCase
         return [
             'filter transactions by date' => [
                 'filters' => [
-                    [
-                        'name' => 'created_at',
-                        'table_name' => 'transactions',
-                        'operator' => Fields::OPERATOR_BT,
-                        'value' => ['2021-01-01', '2021-03-30']
-                    ],
-                    [
-                        'name' => 'name',
-                        'table_name' => 'merchants',
-                        'operator' => Fields::OPERATOR_EQ,
-                        'value' => ['Merchant 1']
-                    ],
+                    $this->makeFilter(['2021-01-01 00:00:00', '2021-01-10 00:00:00'], 'transactions', 'created_at', Fields::OPERATOR_BT),
+                    $this->makeFilter('Merchant 1', 'merchants', 'name', Fields::OPERATOR_EQ),
+                    $this->makeFilter('USD', 'currencies','alphabetic_code',  Fields::OPERATOR_EQ),
                 ],
                 'expectCount' => 30
             ],
-            'filter transactions by purchase amount equals' => [
+            'filter transactions by purchase amount between' => [
                 'filters' => [
-                    [
-                        'name' => 'purchase_amount',
-                        'table_name' => 'transactions',
-                        'operator' => Fields::OPERATOR_EQ,
-                        'value' => 10000
+                    $this->makeFilter([10000, 20000], 'transactions', 'purchase_amount', Fields::OPERATOR_BT),
+                    $this->makeFilter('Merchant 2', 'merchants', 'name', Fields::OPERATOR_EQ),
+                    $this->makeFilter('Mastercard', 'payment_methods', 'name', Fields::OPERATOR_EQ),
+                    $this->makeFilter(null, 'currencies','alphabetic_code'),
                     ],
-                    [
-                        'name' => 'name',
-                        'table_name' => 'merchants',
-                        'operator' => Fields::OPERATOR_EQ,
-                        'value' => ['Merchant 1']
-                    ],
-                ],
-                'expectCount' => 30
+                'expectCount' => 22
             ],
+        ];
+    }
+
+    public function makeFilter($value, string $tableName, string $name, ?string $operator = null): array
+    {
+        return [
+            'name' => $name,
+            'table_name' => $tableName,
+            'operator' => $operator,
+            'value' => $value
         ];
     }
 }

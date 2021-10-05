@@ -21,7 +21,7 @@ class QueryReport extends Model
         foreach ($filters as $filter){
             if($filter['operator'] === Fields::OPERATOR_BT) {
                 $query->whereBetween($filter['table_name'] . '_' . $filter['name'], $filter['value']);
-            } else {
+            } elseif($filter['operator'] !== null && $filter['value'] !== null) {
                 $query->where($filter['table_name'] . '_' . $filter['name'], $filter['operator'], $filter['value']);
             }
         }

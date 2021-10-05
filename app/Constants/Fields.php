@@ -69,7 +69,18 @@ class Fields
         'minor_unit',
     ];
 
-    public static  function all(): array
+    public const FIELDS_BY_TABLE = [
+        'transactions' => self::TRANSACTION_FIELDS,
+        'merchants' => self::MERCHANT_FIELDS,
+        'currencies' => self::CURRENCY_FIELDS,
+        'countries' => self::COUNTRY_FIELDS,
+        'payment_methods' => self::PAYMENT_METHOD_FIELDS,
+        'payers' => self::PAYER_FIELDS,
+        'buyers' => self::BUYER_FIELDS,
+        'devices' => self::DEVICE_FIELDS,
+    ];
+
+    public static function all(): array
     {
         return array_unique(
             array_merge(
@@ -83,5 +94,10 @@ class Fields
                 self::PAYMENT_METHOD_FIELDS,
             ), SORT_REGULAR
         );
+    }
+
+    public static function getFieldsByTable(string $tableName): array
+    {
+        return self::FIELDS_BY_TABLE[$tableName];
     }
 }

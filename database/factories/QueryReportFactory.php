@@ -31,7 +31,7 @@ class QueryReportFactory extends Factory
             'transactions_status' => $this->faker->randomElement(Transactions::STATUSES),
             'transactions_created_at' => $this->faker->dateTimeBetween('-1 years'),
             'transactions_ip' => $this->faker->ipv4(),
-            'currencies_alphabetic_code' => Device::factory(),
+            'currencies_alphabetic_code' => $this->faker->currencyCode(),
             'merchants_name' => $this->faker->firstName(),
             'countries_alpha_3_code' => $this->faker->countryISOAlpha3(),
             'payers_name' => $this->faker->firstName(),

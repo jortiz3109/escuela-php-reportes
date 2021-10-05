@@ -17,9 +17,11 @@ class FieldFactory extends Factory
 
     public function definition(): array
     {
+        $tableName = $this->faker->randomElement(array_keys(ExportModels::EXPORTABLE_MODELS));
+        $name = $this->faker->randomElement(Fields::getFieldsByTable($tableName));
         return [
-            'name' => $this->faker->randomElement(Fields::all()),
-            'table_name' => $this->faker->randomElement(array_keys(ExportModels::EXPORTABLE_MODELS)),
+            'name' => $name,
+            'table_name' => $tableName,
             'priority' => $this->faker->numberBetween(0, 30),
             'order' => $this->faker->randomElement([Fields::ORDER_ASC, Fields::ORDER_DESC]),
             'operator' => $this->faker->randomElement(Fields::OPERATORS),
