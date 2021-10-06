@@ -2,122 +2,72 @@
 
 namespace Tests\Unit\Models;
 
-use App\Constants\ExportModels;
-use App\Constants\Fields;
-use App\Models\Country;
-use App\Models\Currency;
-use App\Models\Merchant;
-use App\Models\PaymentMethod;
 use App\Models\QueryReport;
-use App\Models\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Tests\Concerns\HasOperatorProviders;
 use Tests\TestCase;
 
 class QueryReportTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
+    use HasOperatorProviders;
 
     /**
      * @test
-     * @dataProvider fieldProvider
+     * @dataProvider operatorsProvider
      */
-    public function aClientCanToApplyFilterToReports(array $fields, int $expectCount): void
+    public function aClientCanToApplyFilterToReportsWithOperators(array $fields, int $expectCount): void
     {
-        $usd = Currency::factory()->create(['alphabetic_code' => 'USD']);
-        $cop = Currency::factory()->create(['alphabetic_code' => 'COP']);
-        $visa = PaymentMethod::factory()->create(['name' => 'Visa']);
-        $masterCard = PaymentMethod::factory()->create(['name' => 'Mastercard']);
-        $merchant1 = Merchant::factory()->create(['name' => 'Merchant 1']);
-        $merchant2 = Merchant::factory()->create(['name' => 'Merchant 2']);
-        Transaction::factory(20)->create([
-            'created_at' => '2021-01-01',
-            'purchase_amount' => 15000,
-            'currency_id' => $usd->id,
-            'payment_method_id' => $visa->id,
-            'merchant_id' => $merchant1,
-        ]);
-        Transaction::factory(10)->create([
-            'created_at' => '2021-01-10',
-            'purchase_amount' => rand(10000, 20000),
-            'currency_id' => $usd->id,
-            'payment_method_id' => $masterCard->id,
-            'merchant_id' => $merchant1,
-        ]);
-        Transaction::factory(20)->create([
-            'created_at' => '2021-01-10',
-            'purchase_amount' => 15000,
-            'currency_id' => $cop->id,
-            'payment_method_id' => $visa->id,
-            'merchant_id' => $merchant2,
-        ]);
-        Transaction::factory()->create([
-            'created_at' => '2021-01-20',
-            'purchase_amount' => 10000,
-            'currency_id' => $usd->id,
-            'payment_method_id' => $masterCard->id,
-            'merchant_id' => $merchant2,
-        ]);
-        Transaction::factory()->create([
-            'created_at' => '2021-01-20',
-            'purchase_amount' => 20000,
-            'currency_id' => $usd->id,
-            'payment_method_id' => $masterCard->id,
-            'merchant_id' => $merchant2,
-        ]);
-        Transaction::factory(20)->create([
-            'created_at' => '2021-01-20',
-            'purchase_amount' => rand(10000, 20000),
-            'currency_id' => $usd->id,
-            'payment_method_id' => $masterCard->id,
-            'merchant_id' => $merchant2,
-        ]);
+        $this->makeDataToQuery();
         $reports = QueryReport::filter($fields)->get()->toArray();
 
         $this->assertCount($expectCount, $reports);
-
-       foreach ($fields as $field) {
+        foreach ($fields as $field) {
+            $columnName = $field['table_name'] . '_' . $field['name'];
             if(is_array($field['value'])) {
-                $this->assertNotFalse(array_search($field['value'][0], array_column($reports, $field['table_name'] . '_' . $field['name'])));
-                $this->assertNotFalse(array_search($field['value'][1], array_column($reports, $field['table_name'] . '_' . $field['name'])));
+                $this->assertNotFalse(array_search($field['value'][0], array_column($reports, $columnName)));
+                $this->assertNotFalse(array_search($field['value'][1], array_column($reports, $columnName)));
             } elseif($field['value'] !== null) {
-                $this->assertNotFalse(array_search($field['value'], array_column($reports, $field['table_name'] . '_' . $field['name'])));
+                $this->assertNotFalse(array_search($field['value'], array_column($reports, $columnName)));
             }
+            $this->assertArrayHasKey($columnName, $reports[0]);
         }
-        $this->assertDatabaseCount('query_reports_view', 72);
+        $this->assertSameSize($fields, $reports[0]);
     }
 
-    public function fieldProvider(): array
+    /**
+     * @test
+     * @dataProvider operatorLTProvider
+     */
+    public function aClientCanToApplyFilterToReportsWithLTOperator(array $fields): void
     {
-        return [
-            'filter transactions by date' => [
-                'filters' => [
-                    $this->makeFilter(['2021-01-01 00:00:00', '2021-01-10 00:00:00'], 'transactions', 'created_at', Fields::OPERATOR_BT),
-                    $this->makeFilter('Merchant 1', 'merchants', 'name', Fields::OPERATOR_EQ),
-                    $this->makeFilter('USD', 'currencies','alphabetic_code',  Fields::OPERATOR_EQ),
-                ],
-                'expectCount' => 30
-            ],
-            'filter transactions by purchase amount between' => [
-                'filters' => [
-                    $this->makeFilter([10000, 20000], 'transactions', 'purchase_amount', Fields::OPERATOR_BT),
-                    $this->makeFilter('Merchant 2', 'merchants', 'name', Fields::OPERATOR_EQ),
-                    $this->makeFilter('Mastercard', 'payment_methods', 'name', Fields::OPERATOR_EQ),
-                    $this->makeFilter(null, 'currencies','alphabetic_code'),
-                    ],
-                'expectCount' => 22
-            ],
-        ];
+        $this->makeDataToQuery();
+        $reports = QueryReport::filter($fields)->get()->toArray();
+
+        $columnName = $fields[0]['table_name'] . '_' . $fields[0]['name'];
+        foreach ($reports as $report) {
+            $this->assertTrue($report[$columnName] < $fields[0]['value']);
+        }
+        $this->assertSameSize($fields, $reports[0]);
+        $this->assertArrayHasKey($columnName, $reports[0]);
     }
 
-    public function makeFilter($value, string $tableName, string $name, ?string $operator = null): array
+    /**
+     * @test
+     * @dataProvider operatorGTProvider
+     */
+    public function aClientCanToApplyFilterToReportsWithGTOperator(array $fields): void
     {
-        return [
-            'name' => $name,
-            'table_name' => $tableName,
-            'operator' => $operator,
-            'value' => $value
-        ];
+        $this->makeDataToQuery();
+        $reports = QueryReport::filter($fields)->get()->toArray();
+
+        $columnName = $fields[0]['table_name'] . '_' . $fields[0]['name'];
+        foreach ($reports as $report) {
+            $this->assertTrue($report[$columnName] > $fields[0]['value']);
+        }
+        $this->assertSameSize($fields, $reports[0]);
+        $this->assertArrayHasKey($columnName, $reports[0]);
     }
 }

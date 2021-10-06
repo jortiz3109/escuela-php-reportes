@@ -18,13 +18,17 @@ class QueryReport extends Model
 
     public function scopeFilter(Builder $query, array $filters): Builder
     {
+        $selected = [];
         foreach ($filters as $filter){
+            $columnName = $filter['table_name'] . '_' . $filter['name'];
+            array_push($selected, $columnName);
             if($filter['operator'] === Fields::OPERATOR_BT) {
-                $query->whereBetween($filter['table_name'] . '_' . $filter['name'], $filter['value']);
+                $query->whereBetween($columnName, $filter['value']);
             } elseif($filter['operator'] !== null && $filter['value'] !== null) {
-                $query->where($filter['table_name'] . '_' . $filter['name'], $filter['operator'], $filter['value']);
+                $query->where($columnName, $filter['operator'], $filter['value']);
             }
         }
+        $query->select($selected);
         return $query;
     }
 }
