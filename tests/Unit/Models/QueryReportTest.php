@@ -3,6 +3,7 @@
 namespace Tests\Unit\Models;
 
 use App\Models\QueryReport;
+use Database\Seeders\DatabaseTestSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\Concerns\HasOperatorProviders;
@@ -14,13 +15,91 @@ class QueryReportTest extends TestCase
     use WithFaker;
     use HasOperatorProviders;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed(DatabaseTestSeeder::class);
+    }
+
+    /**
+     * @test
+     * @dataProvider operatorEQProvider
+     */
+    public function aClientCanApplyFiltersWithEQOperator(array $fields, int $expectCount): void
+    {
+        $reports = QueryReport::filter($fields)->get()->toArray();
+
+        $this->assertCount($expectCount, $reports);
+        $columnName = $fields[0]['table_name'] . '_' . $fields[0]['name'];
+        foreach ($reports as $report) {
+            $value = $report[$columnName];
+            $this->assertTrue($value >= $fields[0]['value']);
+            $this->assertTrue($value <= $fields[0]['value']);
+        }
+    }
+
+    /**
+     * @test
+     * @dataProvider operatorBTProvider
+     */
+    public function aClientCanApplyFiltersWithBTOperator(array $fields, int $expectCount): void
+    {
+        $reports = QueryReport::filter($fields)->get()->toArray();
+
+        $this->assertCount($expectCount, $reports);
+        $columnName = $fields[0]['table_name'] . '_' . $fields[0]['name'];
+        $min = $fields[0]['value'][0];
+        $max = $fields[0]['value'][1];
+
+        foreach ($reports as $report) {
+            $value = $report[$columnName];
+            $this->assertTrue($value >= $min);
+            $this->assertTrue($value <= $max);
+        }
+    }
+
+    /**
+     * @test
+     * @dataProvider operatorGEQProvider
+     */
+    public function aClientCanApplyFiltersWithGEQOperator(array $fields, int $expectCount): void
+    {
+        $reports = QueryReport::filter($fields)->get()->toArray();
+
+        $this->assertCount($expectCount, $reports);
+        $columnName = $fields[0]['table_name'] . '_' . $fields[0]['name'];
+        $min = $fields[0]['value'];
+
+        foreach ($reports as $report) {
+            $value = $report[$columnName];
+            $this->assertTrue($value >= $min);
+        }
+    }
+
+    /**
+     * @test
+     * @dataProvider operatorLEQProvider
+     */
+    public function aClientCanApplyFiltersWithLEQOperator(array $fields, int $expectCount): void
+    {
+        $reports = QueryReport::filter($fields)->get()->toArray();
+
+        $this->assertCount($expectCount, $reports);
+        $columnName = $fields[0]['table_name'] . '_' . $fields[0]['name'];
+        $min = $fields[0]['value'];
+
+        foreach ($reports as $report) {
+            $value = $report[$columnName];
+            $this->assertTrue($value <= $min);
+        }
+    }
+
     /**
      * @test
      * @dataProvider operatorsProvider
      */
-    public function aClientCanToApplyFilterToReportsWithOperators(array $fields, int $expectCount): void
+    public function aClientCanToApplyFilterToReportsWithAnyOperators(array $fields, int $expectCount): void
     {
-        $this->makeDataToQuery();
         $reports = QueryReport::filter($fields)->get()->toArray();
 
         $this->assertCount($expectCount, $reports);
@@ -41,33 +120,35 @@ class QueryReportTest extends TestCase
      * @test
      * @dataProvider operatorLTProvider
      */
-    public function aClientCanToApplyFilterToReportsWithLTOperator(array $fields): void
+    public function aClientCanToApplyFilterToReportsWithLTOperator(array $fields, int $expectCount): void
     {
-        $this->makeDataToQuery();
         $reports = QueryReport::filter($fields)->get()->toArray();
 
+        $this->assertCount($expectCount, $reports);
         $columnName = $fields[0]['table_name'] . '_' . $fields[0]['name'];
+        $max = $fields[0]['value'];
+
         foreach ($reports as $report) {
-            $this->assertTrue($report[$columnName] < $fields[0]['value']);
+            $value = $report[$columnName];
+            $this->assertTrue($value < $max);
         }
-        $this->assertSameSize($fields, $reports[0]);
-        $this->assertArrayHasKey($columnName, $reports[0]);
     }
 
     /**
      * @test
      * @dataProvider operatorGTProvider
      */
-    public function aClientCanToApplyFilterToReportsWithGTOperator(array $fields): void
+    public function aClientCanToApplyFilterToReportsWithGTOperator(array $fields, int $expectCount): void
     {
-        $this->makeDataToQuery();
         $reports = QueryReport::filter($fields)->get()->toArray();
 
+        $this->assertCount($expectCount, $reports);
         $columnName = $fields[0]['table_name'] . '_' . $fields[0]['name'];
+        $min = $fields[0]['value'];
+
         foreach ($reports as $report) {
-            $this->assertTrue($report[$columnName] > $fields[0]['value']);
+            $value = $report[$columnName];
+            $this->assertTrue($value > $min);
         }
-        $this->assertSameSize($fields, $reports[0]);
-        $this->assertArrayHasKey($columnName, $reports[0]);
     }
 }
