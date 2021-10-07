@@ -2,29 +2,11 @@
 
 namespace App\Filters;
 
-use App\Constants\Fields;
-use App\Filters\Contracts\FilterContract;
-use App\Filters\Operators\Between;
-use App\Filters\Operators\Equals;
-use App\Filters\Operators\GreaterThan;
-use App\Filters\Operators\GreaterThanOrEquals;
-use App\Filters\Operators\LessThan;
-use App\Filters\Operators\LessThanOrEquals;
-use App\Filters\Operators\NullOperator;
+use App\Filters\Operators\OperatorFactory;
 use Illuminate\Database\Eloquent\Builder;
 
 class Filter
 {
-    public const OPERATORS = [
-        Fields::OPERATOR_EQ => Equals::class,
-        Fields::OPERATOR_BT => Between::class,
-        Fields::OPERATOR_LEQ => LessThanOrEquals::class,
-        Fields::OPERATOR_GEQ => GreaterThanOrEquals::class,
-        Fields::OPERATOR_LT => LessThan::class,
-        Fields::OPERATOR_GT => GreaterThan::class,
-        null => NullOperator::class,
-    ];
-
     public function __construct(public Builder $query, public array $filters)
     {
     }
@@ -33,16 +15,10 @@ class Filter
     {
         foreach ($this->filters as $filter) {
             $columnName = $filter['table_name'] . '_' . $filter['name'];
-            $this->resolveOperator($filter['operator'])->apply($this->query, $columnName, $filter['value']);
+            OperatorFactory::make($filter['operator'])->apply($this->query, $columnName, $filter['value']);
         }
 
         return $this->select()->orderBy();
-    }
-
-    public function resolveOperator(string|null $operator): FilterContract
-    {
-        $classOperator = self::OPERATORS[$operator];
-        return new $classOperator;
     }
 
     public function select(): Filter
