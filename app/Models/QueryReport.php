@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Constants\Fields;
 use App\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
