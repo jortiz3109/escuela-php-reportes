@@ -23,7 +23,7 @@ class Filter
 
     public function select(): Filter
     {
-        $selected = array_map(fn($field) => $field['table_name'] . '_' . $field['name'], $this->filters);
+        $selected = array_map(fn ($field) => $field['table_name'] . '_' . $field['name'], $this->filters);
 
         $this->query->select($selected);
 

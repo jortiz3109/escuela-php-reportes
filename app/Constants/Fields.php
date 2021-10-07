@@ -92,7 +92,8 @@ class Fields
                 self::PAYER_FIELDS,
                 self::BUYER_FIELDS,
                 self::PAYMENT_METHOD_FIELDS,
-            ), SORT_REGULAR
+            ),
+            SORT_REGULAR
         );
     }
 

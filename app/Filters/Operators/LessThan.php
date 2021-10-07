@@ -9,6 +9,6 @@ class LessThan extends FilterContract
 {
     public function apply(Builder $query, string $field, array|string|null $value): Builder
     {
-        return $query->where($field, '<',  $value);
+        return $query->where($field, '<', $value);
     }
 }

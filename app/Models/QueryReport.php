@@ -19,6 +19,7 @@ class QueryReport extends Model
     public function scopeFilter(Builder $query, array $filters): Builder
     {
         $filter = new Filter($query, $filters);
+
         return $filter->buildQuery()->getBuilder();
     }
 }

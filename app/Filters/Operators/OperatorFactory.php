@@ -19,6 +19,7 @@ class OperatorFactory
     public static function make(string|null $operator): FilterContract
     {
         $classOperator = self::OPERATORS[$operator] ?? NullOperator::class;
+
         return new $classOperator;
     }
 }
