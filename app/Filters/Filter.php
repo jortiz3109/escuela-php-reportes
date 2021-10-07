@@ -23,11 +23,8 @@ class Filter
 
     public function select(): Filter
     {
-        $selected = [];
-        foreach ($this->filters as $field) {
-            $columnName = $field['table_name'] . '_' . $field['name'];
-            array_push($selected, $columnName);
-        }
+        $selected = array_map(fn($field) => $field['table_name'] . '_' . $field['name'], $this->filters);
+
         $this->query->select($selected);
 
         return $this;
