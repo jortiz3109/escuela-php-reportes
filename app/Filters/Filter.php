@@ -25,21 +25,45 @@ class Filter
         null => NullOperator::class,
     ];
 
-    public static function buildQuery(Builder $query, array $filters): Builder
+    public function __construct(public Builder $query, public array $filters)
     {
-        $selected = [];
-        foreach ($filters as $filter) {
-            $columnName = $filter['table_name'] . '_' . $filter['name'];
-            array_push($selected, $columnName);
-            self::resolveOperator($filter['operator'])->apply($query, $columnName, $filter['value']);
-        }
-
-        return $query->select($selected);
     }
 
-    public static function resolveOperator(string|null $operator): FilterContract
+    public function buildQuery(): Filter
+    {
+        foreach ($this->filters as $filter) {
+            $columnName = $filter['table_name'] . '_' . $filter['name'];
+            $this->resolveOperator($filter['operator'])->apply($this->query, $columnName, $filter['value']);
+        }
+
+        return $this->select()->orderBy();
+    }
+
+    public function resolveOperator(string|null $operator): FilterContract
     {
         $classOperator = self::OPERATORS[$operator];
         return new $classOperator;
+    }
+
+    public function select(): Filter
+    {
+        $selected = [];
+        foreach ($this->filters as $field) {
+            $columnName = $field['table_name'] . '_' . $field['name'];
+            array_push($selected, $columnName);
+        }
+        $this->query->select($selected);
+
+        return $this;
+    }
+
+    public function orderBy(): Filter
+    {
+        return $this;
+    }
+
+    public function getBuilder(): Builder
+    {
+        return $this->query;
     }
 }
