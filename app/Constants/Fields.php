@@ -12,7 +12,7 @@ class Fields
     public const OPERATOR_LT = '<';
     public const OPERATOR_GT = '>';
     public const OPERATOR_DT = '!=';
-    public const OPERATOR_BT = 'BETWEEN';
+    public const OPERATOR_BT = 'between';
 
     public const OPERATORS = [
         self::OPERATOR_EQ,
