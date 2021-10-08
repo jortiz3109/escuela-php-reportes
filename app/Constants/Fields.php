@@ -11,7 +11,6 @@ class Fields
     public const OPERATOR_GEQ = '>=';
     public const OPERATOR_LT = '<';
     public const OPERATOR_GT = '>';
-    public const OPERATOR_DT = '!=';
     public const OPERATOR_BT = 'between';
 
     public const OPERATORS = [
@@ -20,7 +19,6 @@ class Fields
         self::OPERATOR_LEQ,
         self::OPERATOR_GT,
         self::OPERATOR_LT,
-        self::OPERATOR_DT,
         self::OPERATOR_BT,
     ];
 
