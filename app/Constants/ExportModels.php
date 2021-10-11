@@ -14,13 +14,13 @@ use App\Models\Transaction;
 class ExportModels
 {
     public const EXPORTABLE_MODELS = [
-        Merchant::class,
-        Transaction::class,
-        Buyer::class,
-        Payer::class,
-        Currency::class,
-        Country::class,
-        Device::class,
-        PaymentMethod::class,
+        'merchants' => Merchant::class,
+        'transactions' => Transaction::class,
+        'buyers' => Buyer::class,
+        'payers' => Payer::class,
+        'currencies' => Currency::class,
+        'countries' => Country::class,
+        'devices' => Device::class,
+        'payment_methods' => PaymentMethod::class,
     ];
 }

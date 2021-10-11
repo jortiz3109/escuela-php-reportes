@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Constants\ExportModels;
+use App\Constants\Exports;
 use App\Models\Report;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -14,6 +16,9 @@ class ReportFactory extends Factory
 
     public function definition(): array
     {
-        return [];
+        return [
+            'model' => $this->faker->randomElement(ExportModels::EXPORTABLE_MODELS),
+            'extension' => $this->faker->randomElement(Exports::TYPES),
+        ];
     }
 }
