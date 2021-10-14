@@ -28,10 +28,9 @@ class Kernel extends ConsoleKernel
     {
        $schedule->command('report:run')
            ->everyMinute()
-           ->onSuccess()
-           ->onFailure()
-           /*->pingBefore($url)
-           ->thenPing($url)*/
+           //TODO Inspect how to use those methods in benefit of the report scheduling state *->pingBefore($url) ->thenPing($url)
+           //TODO->onSuccess('handle a log event, or update panel system. Define with team.')
+           //TODO->onFailure('handle a log event. Define with team')
            ->withoutOverlapping();
     }
 

@@ -52,6 +52,6 @@ class RunAllReports extends Command
         foreach ( $tasks->get() as $task){
             $this->line('The report with id '.$task->report_id.' were created.');
         }
-
+        $this->line('All your reports schedule were ran.');
     }
 }
