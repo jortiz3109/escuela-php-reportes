@@ -19,12 +19,11 @@ class CommandsTest extends TestCase
      */
     public function schedule_report_command_is_running(): void
     {
-        $this->setATimeToTest();
         $report = Report::factory()->create();
         Schedule::factory()->count(15)->create(['report_id' => $report->id]);
 
         $this->artisan('reports:run')
-            ->expectsOutput('All your reports schedule were run')
+            ->expectsOutput('All your reports schedule were ran.')
             ->assertExitCode(0);
     }
 
