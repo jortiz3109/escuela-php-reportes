@@ -17,7 +17,7 @@ class ReportFactory extends Factory
     public function definition(): array
     {
         return [
-            'model' => $this->faker->randomElement(ExportModels::EXPORTABLE_MODELS),
+            'model' => str_replace( '\\', '', $this->faker->randomElement(ExportModels::EXPORTABLE_MODELS)),
             'extension' => $this->faker->randomElement(Exports::TYPES),
         ];
     }
