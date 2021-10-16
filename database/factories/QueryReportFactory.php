@@ -4,16 +4,14 @@ namespace Database\Factories;
 
 use App\Constants\Devices;
 use App\Constants\Transactions;
-use App\Models\Buyer;
-use App\Models\Currency;
-use App\Models\Device;
-use App\Models\Merchant;
-use App\Models\Payer;
-use App\Models\PaymentMethod;
 use App\Models\QueryReport;
-use App\Models\Transaction;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class QueryReportFactory
+ * @method QueryReport create($attributes = [], ?Model $parent = null)
+ */
 class QueryReportFactory extends Factory
 {
     /**
