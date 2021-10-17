@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Constants\Devices;
 use App\Models\Device;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class DeviceFactory extends Factory
 {
@@ -16,6 +17,7 @@ class DeviceFactory extends Factory
     public function definition(): array
     {
         return [
+            'uuid' => Str::uuid(),
             'browser' => $this->faker->firstName(),
             'os' => $this->faker->randomElement(['Android', 'IOS', 'Windows', 'Linux']),
             'device_type' => $this->faker->randomElement(Devices::TYPES),

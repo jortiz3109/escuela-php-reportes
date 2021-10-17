@@ -21,10 +21,10 @@ SELECT
     device.os AS devices_os,
     device.device_type AS devices_device_type
 FROM transactions
-         LEFT JOIN merchants merchant ON transactions.merchant_id = merchant.id
-         LEFT JOIN countries country ON merchant.country_id = country.id
-         LEFT JOIN currencies currency ON transactions.currency_id = currency.id
-         LEFT JOIN payers ON transactions.payer_id = payers.id
-         LEFT JOIN buyers ON transactions.buyer_id = buyers.id
-         LEFT JOIN payment_methods pm ON transactions.payment_method_id = pm.id
-         LEFT JOIN devices device ON transactions.device_id = device.id;
+         LEFT JOIN merchants merchant ON transactions.merchant_uuid = merchant.uuid
+         LEFT JOIN countries country ON merchant.country_uuid = country.uuid
+         LEFT JOIN currencies currency ON transactions.currency_uuid = currency.uuid
+         LEFT JOIN payers ON transactions.payer_uuid = payers.uuid
+         LEFT JOIN buyers ON transactions.buyer_uuid = buyers.uuid
+         LEFT JOIN payment_methods pm ON transactions.payment_method_uuid = pm.uuid
+         LEFT JOIN devices device ON transactions.device_uuid = device.uuid;

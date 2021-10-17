@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Country;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class CountryFactory extends Factory
 {
@@ -15,6 +16,7 @@ class CountryFactory extends Factory
     public function definition(): array
     {
         return [
+            'uuid' => Str::uuid(),
             'numeric_code' => $this->faker->unique()->countryCode(),
             'alpha_3_code' => $this->faker->unique()->countryISOAlpha3(),
         ];

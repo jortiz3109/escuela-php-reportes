@@ -11,6 +11,7 @@ class CreateDevicesTable extends Migration
     {
         Schema::create('devices', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->string('browser', 50)->index();
             $table->string('os', 100);
             $table->enum('device_type', Devices::TYPES);

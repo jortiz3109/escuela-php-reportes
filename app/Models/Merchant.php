@@ -9,12 +9,21 @@ use Ramsey\Uuid\Uuid;
 
 /**
  * @method static create(array $attributes)
+ * @method static pluck(string $string)
  */
 class Merchant extends Model
 {
     use HasFactory;
 
     const UPDATED_AT = null;
+
+    public $fillable = [
+        'uuid',
+        'name',
+        'url',
+        'country_uuid',
+        'currency_uuid',
+    ];
 
     public static function createWithAttributes(array $attributes): Merchant
     {

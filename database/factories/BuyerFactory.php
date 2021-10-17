@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Buyer;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 use JetBrains\PhpStorm\ArrayShape;
 
 class BuyerFactory extends Factory
@@ -16,6 +17,7 @@ class BuyerFactory extends Factory
     public function definition(): array
     {
         return [
+            'uuid' => Str::uuid(),
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->email(),
         ];
