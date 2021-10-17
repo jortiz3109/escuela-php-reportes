@@ -11,19 +11,19 @@ trait HasOperatorProviders
         return [
             'filter transactions by date equals' => [
                 'filters' => [
-                    $this->makeFilter('2021-01-10 00:00:00', 'transactions', 'created_at', Fields::OPERATOR_EQ),
+                    $this->makeFilter('transactions', 'created_at', Fields::OPERATOR_EQ, '2021-01-10 00:00:00'),
                 ],
                 'expectCount' => 20,
             ],
             'filter merchants by name equals Merchant 1' => [
                 'filters' => [
-                    $this->makeFilter('Merchant 1', 'merchants', 'name', Fields::OPERATOR_EQ),
+                    $this->makeFilter('merchants', 'name', Fields::OPERATOR_EQ, 'Merchant 1'),
                 ],
                 'expectCount' => 22,
             ],
             'filter currencies by code equals USD' => [
                 'filters' => [
-                    $this->makeFilter('USD', 'currencies', 'alphabetic_code', Fields::OPERATOR_EQ),
+                    $this->makeFilter('currencies', 'alphabetic_code', Fields::OPERATOR_EQ, 'USD'),
                 ],
                 'expectCount' => 32,
             ],
@@ -35,13 +35,13 @@ trait HasOperatorProviders
         return [
             'filter transactions by date with between operator' => [
                 'filters' => [
-                    $this->makeFilter(['2021-01-01 00:00:00', '2021-01-10 00:00:00'], 'transactions', 'created_at', Fields::OPERATOR_BT),
+                    $this->makeFilter('transactions', 'created_at', Fields::OPERATOR_BT, ['2021-01-01 00:00:00', '2021-01-10 00:00:00']),
                 ],
                 'expectCount' => 30,
             ],
             'filter transactions by purchase_amount between 10000 and 20000' => [
                 'filters' => [
-                    $this->makeFilter([10000, 20000], 'transactions', 'purchase_amount', Fields::OPERATOR_BT),
+                    $this->makeFilter('transactions', 'purchase_amount', Fields::OPERATOR_BT, [10000, 20000]),
                 ],
                 'expectCount' => 42,
             ],
@@ -53,13 +53,13 @@ trait HasOperatorProviders
         return [
             'filter transactions by date with date >= operator' => [
                 'filters' => [
-                    $this->makeFilter('2021-01-20 00:00:00', 'transactions', 'created_at', Fields::OPERATOR_GEQ),
+                    $this->makeFilter('transactions', 'created_at', Fields::OPERATOR_GEQ, '2021-01-20 00:00:00'),
                 ],
                 'expectCount' => 12,
             ],
             'filter transactions by purchase_amount >= 20000' => [
                 'filters' => [
-                    $this->makeFilter(10000, 'transactions', 'purchase_amount', Fields::OPERATOR_GEQ),
+                    $this->makeFilter('transactions', 'purchase_amount', Fields::OPERATOR_GEQ, 10000),
                 ],
                 'expectCount' => 42,
             ],
@@ -71,13 +71,13 @@ trait HasOperatorProviders
         return [
             'filter transactions by date with date <= operator' => [
                 'filters' => [
-                    $this->makeFilter('2021-01-01 00:00:00', 'transactions', 'created_at', Fields::OPERATOR_LEQ),
+                    $this->makeFilter('transactions', 'created_at', Fields::OPERATOR_LEQ, '2021-01-01 00:00:00'),
                 ],
                 'expectCount' => 10,
             ],
             'filter transactions by purchase_amount <= 20000' => [
                 'filters' => [
-                    $this->makeFilter(20000, 'transactions', 'purchase_amount', Fields::OPERATOR_LEQ),
+                    $this->makeFilter('transactions', 'purchase_amount', Fields::OPERATOR_LEQ, 20000),
                 ],
                 'expectCount' => 42,
             ],
@@ -89,50 +89,50 @@ trait HasOperatorProviders
         return [
             'filter transactions by date between' => [
                 'filters' => [
-                    $this->makeFilter(['2021-01-01 00:00:00', '2021-01-10 00:00:00'], 'transactions', 'created_at', Fields::OPERATOR_BT),
-                    $this->makeFilter('Merchant 1', 'merchants', 'name', Fields::OPERATOR_EQ),
-                    $this->makeFilter('USD', 'currencies', 'alphabetic_code', Fields::OPERATOR_EQ),
+                    $this->makeFilter('transactions', 'created_at', Fields::OPERATOR_BT, ['2021-01-01 00:00:00', '2021-01-10 00:00:00']),
+                    $this->makeFilter('merchants', 'name', Fields::OPERATOR_EQ, 'Merchant 1'),
+                    $this->makeFilter('currencies', 'alphabetic_code', Fields::OPERATOR_EQ, 'USD'),
                 ],
                 'expectCount' => 20,
             ],
             'filter transactions by date great or equals than 2021-01-10 00:00:00' => [
                 'filters' => [
-                    $this->makeFilter('2021-01-10 00:00:00', 'transactions', 'created_at', Fields::OPERATOR_GEQ),
-                    $this->makeFilter('Merchant 1', 'merchants', 'name', Fields::OPERATOR_EQ),
-                    $this->makeFilter(null, 'currencies', 'alphabetic_code'),
+                    $this->makeFilter('transactions', 'created_at', Fields::OPERATOR_GEQ, '2021-01-10 00:00:00'),
+                    $this->makeFilter('merchants', 'name', Fields::OPERATOR_EQ, 'Merchant 1'),
+                    $this->makeFilter('currencies', 'alphabetic_code'),
                 ],
                 'expectCount' => 12,
             ],
             'filter transactions by purchase amount between' => [
                 'filters' => [
-                    $this->makeFilter([10000, 20000], 'transactions', 'purchase_amount', Fields::OPERATOR_BT),
-                    $this->makeFilter('Merchant 1', 'merchants', 'name', Fields::OPERATOR_EQ),
-                    $this->makeFilter('Mastercard', 'payment_methods', 'name', Fields::OPERATOR_EQ),
-                    $this->makeFilter(null, 'currencies', 'alphabetic_code'),
+                    $this->makeFilter('transactions', 'purchase_amount', Fields::OPERATOR_BT, [10000, 20000]),
+                    $this->makeFilter('merchants', 'name', Fields::OPERATOR_EQ, 'Merchant 1'),
+                    $this->makeFilter('payment_methods', 'name', Fields::OPERATOR_EQ, 'Mastercard'),
+                    $this->makeFilter('currencies', 'alphabetic_code'),
                 ],
                 'expectCount' => 12,
             ],
             'filter merchants by currency code equals USD' => [
                 'filters' => [
-                    $this->makeFilter('Merchant 1', 'merchants', 'name', Fields::OPERATOR_EQ),
-                    $this->makeFilter('USD', 'currencies', 'alphabetic_code', Fields::OPERATOR_EQ),
-                    $this->makeFilter(null, 'countries', 'alpha_3_code'),
-                    $this->makeFilter(null, 'payment_methods', 'name'),
+                    $this->makeFilter('merchants', 'name', Fields::OPERATOR_EQ, 'Merchant 1'),
+                    $this->makeFilter('currencies', 'alphabetic_code', Fields::OPERATOR_EQ, 'USD'),
+                    $this->makeFilter('countries', 'alpha_3_code'),
+                    $this->makeFilter('payment_methods', 'name'),
                 ],
                 'expectCount' => 22,
             ],
             'filter transactions by currency code equals COL and purchase amount less or equals than 14999' => [
                 'filters' => [
-                    $this->makeFilter('COP', 'currencies', 'alphabetic_code', Fields::OPERATOR_EQ),
-                    $this->makeFilter(null, 'transactions', 'created_at'),
-                    $this->makeFilter(15000, 'transactions', 'purchase_amount', Fields::OPERATOR_LEQ),
+                    $this->makeFilter('currencies', 'alphabetic_code', Fields::OPERATOR_EQ, 'COP'),
+                    $this->makeFilter('transactions', 'created_at'),
+                    $this->makeFilter('transactions', 'purchase_amount', Fields::OPERATOR_LEQ, 15000),
                 ],
                 'expectCount' => 10,
             ],
             'filter payment methods Visa' => [
                 'filters' => [
-                    $this->makeFilter('Visa', 'payment_methods', 'name', Fields::OPERATOR_EQ),
-                    $this->makeFilter(null, 'transactions', 'purchase_amount'),
+                    $this->makeFilter('payment_methods', 'name', Fields::OPERATOR_EQ, 'Visa'),
+                    $this->makeFilter('transactions', 'purchase_amount'),
                 ],
                 'expectCount' => 20,
             ],
@@ -142,15 +142,15 @@ trait HasOperatorProviders
     public function operatorLTProvider(): array
     {
         return [
-            'filter transactions by currency code equals COL and purchase amount less than 20000' => [
+            'filter transactions by purchase amount less than 20000' => [
                 'filters' => [
-                    $this->makeFilter(20000, 'transactions', 'purchase_amount', Fields::OPERATOR_LT),
+                    $this->makeFilter('transactions', 'purchase_amount', Fields::OPERATOR_LT, 20000),
                 ],
                 'expectCount' => 41,
             ],
             'filter transactions by date less than 2020-01-10' => [
                 'filters' => [
-                    $this->makeFilter('2021-01-10 00:00:00', 'transactions', 'created_at', Fields::OPERATOR_LT),
+                    $this->makeFilter('transactions', 'created_at', Fields::OPERATOR_LT, '2021-01-10 00:00:00'),
                 ],
                 'expectCount' => 10,
             ],
@@ -160,28 +160,60 @@ trait HasOperatorProviders
     public function operatorGTProvider(): array
     {
         return [
-            'filter transactions by currency code equals COL and purchase amount great than 10000' => [
+            'filter transactions by purchase amount great than 10000' => [
                 'filters' => [
-                    $this->makeFilter(10000, 'transactions', 'purchase_amount', Fields::OPERATOR_GT),
+                    $this->makeFilter('transactions', 'purchase_amount', Fields::OPERATOR_GT, 10000),
                 ],
                 'expectCount' => 41,
             ],
             'filter transactions by date great than 2020-01-10' => [
                 'filters' => [
-                    $this->makeFilter('2021-01-10 00:00:00', 'transactions', 'created_at', Fields::OPERATOR_GT),
+                    $this->makeFilter('transactions', 'created_at', Fields::OPERATOR_GT, '2021-01-10 00:00:00'),
                 ],
                 'expectCount' => 12,
             ],
         ];
     }
 
-    public function makeFilter(array|string|null $value, string $tableName, string $name, ?string $operator = null): array
+    public function ascendingDataProvider(): array
     {
         return [
-            'name' => $name,
+            'query merchants and transactions ordering data ascending by default' => [
+                'filters' => [
+                    $this->makeFilter('merchants', 'name'),
+                    $this->makeFilter('transactions', 'purchase_amount'),
+                    $this->makeFilter('transactions', 'platform_amount'),
+                ],
+            ],
+        ];
+    }
+
+    public function descendingDataProvider(): array
+    {
+        return [
+            'query merchants and transactions ordering data descending' => [
+                'filters' => [
+                    $this->makeFilter('merchants', 'name', null, null, 'desc'),
+                    $this->makeFilter('transactions', 'purchase_amount', null, null, 'desc'),
+                    $this->makeFilter('transactions', 'platform_amount', null, null, 'desc'),
+                ],
+            ],
+        ];
+    }
+
+    public function makeFilter(
+        string $tableName,
+        string $name,
+        ?string $operator = null,
+        array|string|null $value = null,
+        ?string $order = 'asc'
+    ): array {
+        return [
             'table_name' => $tableName,
+            'name' => $name,
             'operator' => $operator,
             'value' => $value,
+            'order' => $order,
         ];
     }
 }

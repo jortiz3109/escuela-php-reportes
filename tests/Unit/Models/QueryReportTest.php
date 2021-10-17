@@ -98,7 +98,7 @@ class QueryReportTest extends TestCase
      * @test
      * @dataProvider operatorsProvider
      */
-    public function aClientCanToApplyFilterToReportsWithAnyOperators(array $fields, int $expectCount): void
+    public function aClientCanApplyFilterToReportsWithAnyOperators(array $fields, int $expectCount): void
     {
         $reports = QueryReport::filter($fields)->get()->toArray();
 
@@ -120,7 +120,7 @@ class QueryReportTest extends TestCase
      * @test
      * @dataProvider operatorLTProvider
      */
-    public function aClientCanToApplyFilterToReportsWithLTOperator(array $fields, int $expectCount): void
+    public function aClientCanApplyFilterToReportsWithLTOperator(array $fields, int $expectCount): void
     {
         $reports = QueryReport::filter($fields)->get()->toArray();
 
@@ -138,7 +138,7 @@ class QueryReportTest extends TestCase
      * @test
      * @dataProvider operatorGTProvider
      */
-    public function aClientCanToApplyFilterToReportsWithGTOperator(array $fields, int $expectCount): void
+    public function aClientCanApplyFilterToReportsWithGTOperator(array $fields, int $expectCount): void
     {
         $reports = QueryReport::filter($fields)->get()->toArray();
 
@@ -149,6 +149,50 @@ class QueryReportTest extends TestCase
         foreach ($reports as $report) {
             $value = $report[$columnName];
             $this->assertTrue($value > $min);
+        }
+    }
+
+    /**
+     * @test
+     * @dataProvider ascendingDataProvider
+     */
+    public function aClientCanOrderDataAscending(array $filters): void
+    {
+        $reports = QueryReport::filter($filters)->get()->toArray();
+        $columnNames = array_keys($reports[0]);
+
+        for ($i = 1; $i < count($reports); $i++) {
+            foreach ($columnNames as $columnName) {
+                $currentRegister = $reports[$i][$columnName];
+                $previousRegister = $reports[$i - 1][$columnName];
+
+                if ($currentRegister !== $previousRegister) {
+                    $this->assertTrue($currentRegister > $previousRegister);
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * @test
+     * @dataProvider descendingDataProvider
+     */
+    public function aClientCanOrderDataDescending(array $filters): void
+    {
+        $reports = QueryReport::filter($filters)->get()->toArray();
+        $columnNames = array_keys($reports[0]);
+
+        for ($i = 1; $i < count($reports); $i++) {
+            foreach ($columnNames as $columnName) {
+                $currentRegister = $reports[$i][$columnName];
+                $previousRegister = $reports[$i - 1][$columnName];
+
+                if ($currentRegister !== $previousRegister) {
+                    $this->assertTrue($currentRegister < $previousRegister);
+                    break;
+                }
+            }
         }
     }
 }
