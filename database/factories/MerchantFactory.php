@@ -20,11 +20,11 @@ class MerchantFactory extends Factory
         $countries = Country::all();
         $currencies = Currency::all();
         return [
-            'uuid' => Str::uuid(),
+            'uuid' => $this->faker->uuid(),
             'name' => $this->faker->unique()->name(),
             'url' => $this->faker->url(),
-            'country_uuid' => $countries->isEmpty()? Country::factory()->create()->uuid : $countries->random()->uuid,
-            'currency_uuid' => $currencies->isEmpty()? Currency::factory()->create()->uuid : $currencies->random()->uuid,
+            'country_uuid' => $countries->isEmpty()? Country::factory()->create()->getAttribute('uuid') : $countries->random()->uuid,
+            'currency_uuid' => $currencies->isEmpty()? Currency::factory()->create()->getAttribute('uuid') : $currencies->random()->uuid,
         ];
     }
 }

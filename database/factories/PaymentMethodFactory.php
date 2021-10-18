@@ -16,7 +16,7 @@ class PaymentMethodFactory extends Factory
     public function definition(): array
     {
         return [
-            'uuid' => Str::uuid(),
+            'uuid' => $this->faker->uuid(),
             'name' => $this->faker->unique()->creditCardType(),
         ];
     }

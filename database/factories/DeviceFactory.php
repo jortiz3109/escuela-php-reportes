@@ -17,7 +17,7 @@ class DeviceFactory extends Factory
     public function definition(): array
     {
         return [
-            'uuid' => Str::uuid(),
+            'uuid' => $this->faker->uuid(),
             'browser' => $this->faker->firstName(),
             'os' => $this->faker->randomElement(['Android', 'IOS', 'Windows', 'Linux']),
             'device_type' => $this->faker->randomElement(Devices::TYPES),

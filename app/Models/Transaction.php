@@ -49,7 +49,6 @@ class Transaction extends Model
             'payment_method_uuid' => $attributes['payment_method_uuid'],
             'currency_uuid' => $attributes['currency_uuid'],
             'country_uuid' => $attributes['country_uuid'],
-            'created_at' => $attributes['created_at'],
         ]);
     }
 }

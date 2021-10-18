@@ -31,7 +31,6 @@ class Merchant extends Model
             'url' => $attributes['url'],
             'country_uuid' => $attributes['country_uuid'],
             'currency_uuid' => $attributes['currency_uuid'],
-//            'created_at' => $attributes['created_at'],
         ]);
     }
 }
