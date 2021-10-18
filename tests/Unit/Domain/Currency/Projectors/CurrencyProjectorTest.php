@@ -6,7 +6,7 @@ use App\Models\Currency;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class CurrencyProjector extends TestCase
+class CurrencyProjectorTest extends TestCase
 {
     use RefreshDatabase;
 

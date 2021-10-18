@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @method static create(array $attributes)
  * @method static pluck(string $string)
+ * @method static truncate()
  */
 class Merchant extends Model
 {
@@ -31,6 +32,7 @@ class Merchant extends Model
             'url' => $attributes['url'],
             'country_uuid' => $attributes['country_uuid'],
             'currency_uuid' => $attributes['currency_uuid'],
+            'created_at' => $attributes['created_at'],
         ]);
     }
 }

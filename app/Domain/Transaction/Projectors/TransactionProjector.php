@@ -8,8 +8,8 @@ use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 
 class TransactionProjector extends Projector
 {
-    public function onTransactionAdded(TransactionAdded $event)
+    public function onTransactionAdded(TransactionAdded $event): void
     {
-        Transaction::createWithAttributes($event->attributes);
+        Transaction::createWithAttributes(array_merge($event->attributes, ['created_at' => $event->createdAt()]));
     }
 }

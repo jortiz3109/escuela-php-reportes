@@ -13,6 +13,7 @@ class PaymentMethodProjector extends Projector
         PaymentMethod::create([
             'uuid' => $event->attributes['uuid'],
             'name' => $event->attributes['name'],
+            'created_at' => $event->createdAt() ?? now()->toDateTimeString(),
         ]);
     }
 }

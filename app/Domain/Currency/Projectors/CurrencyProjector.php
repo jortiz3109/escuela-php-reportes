@@ -8,7 +8,7 @@ use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 
 class CurrencyProjector extends Projector
 {
-    public function onCountryCreated(CurrencyCreated $event)
+    public function onCountryCreated(CurrencyCreated $event): void
     {
         Currency::create([
             'uuid' => $event->attributes['uuid'],

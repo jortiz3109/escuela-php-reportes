@@ -8,7 +8,7 @@ use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 
 class CountryProjector extends Projector
 {
-    public function onCountryCreated(CountryCreated $event)
+    public function onCountryCreated(CountryCreated $event): void
     {
         Country::create([
             'uuid' => $event->attributes['uuid'],

@@ -6,7 +6,7 @@ use App\Models\Country;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class CountryProjector extends TestCase
+class CountryProjectorTest extends TestCase
 {
     use RefreshDatabase;
 

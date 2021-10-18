@@ -10,6 +10,6 @@ class MerchantProjector extends Projector
 {
     public function onMerchantCreated(MerchantCreated $event): void
     {
-        Merchant::createWithAttributes($event->attributes);
+        Merchant::createWithAttributes(array_merge($event->attributes, ['created_at' => $event->createdAt()]));
     }
 }
