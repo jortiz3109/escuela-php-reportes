@@ -10,6 +10,10 @@ class CountryProjector extends Projector
 {
     public function onCountryCreated(CountryCreated $event)
     {
-        Country::create($event->attributes);
+        Country::create([
+            'uuid' => $event->attributes['uuid'],
+            'numeric_code' => $event->attributes['numeric_code'],
+            'alpha_3_code' => $event->attributes['alpha_3_code'],
+        ]);
     }
 }

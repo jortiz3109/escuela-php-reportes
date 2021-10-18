@@ -22,7 +22,6 @@ class Country extends Model
         'uuid',
         'numeric_code',
         'alpha_3_code',
-        'created_at',
     ];
 
     public static function createWithAttributes(array $attributes): self

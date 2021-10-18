@@ -22,7 +22,7 @@ class Currency extends Model
         'uuid',
         'alphabetic_code',
         'numeric_code',
-        'created_at',
+        'minor_unit',
     ];
 
     public static function createWithAttributes(array $attributes): self

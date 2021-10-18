@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static pluck(string $string)
+ * @method static create(array $attributes)
  */
 class PaymentMethod extends Model
 {

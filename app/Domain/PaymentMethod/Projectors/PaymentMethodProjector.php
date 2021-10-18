@@ -10,6 +10,9 @@ class PaymentMethodProjector extends Projector
 {
     public function onPaymentMethodCreated(PaymentMethodCreated $event): void
     {
-        PaymentMethod::createWithAttributes(array_merge($event->attributes, ['created_at' => $event->attributes['created_at']]));
+        PaymentMethod::create([
+            'uuid' => $event->attributes['uuid'],
+            'name' => $event->attributes['name'],
+        ]);
     }
 }

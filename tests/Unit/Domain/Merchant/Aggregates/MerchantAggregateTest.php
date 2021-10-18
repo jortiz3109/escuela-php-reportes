@@ -4,12 +4,9 @@ namespace Domain\Merchant\Aggregates;
 
 use App\Domain\Merchant\Aggregates\MerchantAggregate;
 use App\Domain\Merchant\Events\MerchantCreated;
-use App\Models\Country;
-use App\Models\Currency;
 use App\Models\Merchant;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
 class MerchantAggregateTest extends TestCase
