@@ -12,12 +12,12 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->string('reference', 50);
+            $table->string('reference', 50)->unique();
             $table->unsignedBigInteger('purchase_amount');
             $table->unsignedBigInteger('platform_amount');
             $table->string('truncated_pan', 20);
-            $table->enum('status', Transactions::STATUSES);
-            $table->ipAddress('ip');
+            $table->enum('status', Transactions::STATUSES)->index();
+            $table->ipAddress('ip')->index();
             $table->foreignUuid('device_uuid')->constrained('devices', 'uuid');
             $table->foreignUuid('payer_uuid')->nullable()->constrained('payers', 'uuid');
             $table->foreignUuid('buyer_uuid')->nullable()->constrained('buyers', 'uuid');
@@ -25,7 +25,7 @@ class CreateTransactionsTable extends Migration
             $table->foreignUuid('payment_method_uuid')->constrained('payment_methods', 'uuid');
             $table->foreignUuid('currency_uuid')->constrained('currencies', 'uuid');
             $table->foreignUuid('country_uuid')->constrained('countries', 'uuid');
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->index();
         });
     }
 

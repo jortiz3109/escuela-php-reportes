@@ -16,7 +16,7 @@ class PaymentMethod extends Model
     use HasFactory;
     use HasUuid;
 
-    const UPDATED_AT = null;
+    public const UPDATED_AT = null;
 
     public $fillable = [
         'uuid',

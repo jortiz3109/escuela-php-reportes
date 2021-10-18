@@ -15,7 +15,7 @@ class CreateMerchantsTable extends Migration
             $table->string('url');
             $table->foreignUuid('country_uuid')->constrained('countries', 'uuid');
             $table->foreignUuid('currency_uuid')->constrained('currencies', 'uuid');
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->index();
         });
     }
 

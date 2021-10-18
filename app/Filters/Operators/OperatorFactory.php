@@ -20,6 +20,6 @@ class OperatorFactory
     {
         $classOperator = self::OPERATORS[$operator] ?? NullOperator::class;
 
-        return new $classOperator;
+        return new $classOperator();
     }
 }

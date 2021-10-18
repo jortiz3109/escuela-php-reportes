@@ -7,7 +7,7 @@
  */
 $config = new PhpCsFixer\Config();
 return $config->setRules([
-         '@PSR2' => true,                                    // Use PSR-2 formatting by default.
+         '@PSR12' => true,                                    // Use PSR-2 formatting by default.
          'trailing_comma_in_multiline' => true,        // PHP multi-line arrays should have a trailing comma.
          'ordered_imports' => true,                          // Ordering use statements (alphabetically)
          'blank_line_before_statement' => true,                 // An empty line feed should precede a return statement
