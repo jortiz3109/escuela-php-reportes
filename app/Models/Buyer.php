@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static pluck(string $string)
+ * @method static create(array $array)
  */
 class Buyer extends Model
 {
@@ -14,8 +15,20 @@ class Buyer extends Model
 
     const UPDATED_AT = null;
 
-    public function createWithAttributes(): static
+    public $fillable = [
+        'uuid',
+        'name',
+        'email',
+        'created_at',
+    ];
+
+    public static function createWithAttributes(array $attributes): self
     {
-        
+        return static::create([
+            'uuid' => $attributes['uuid'],
+            'name' => $attributes['name'],
+            'email' => $attributes['email'],
+            'created_at' => $attributes['created_at'],
+        ]);
     }
 }

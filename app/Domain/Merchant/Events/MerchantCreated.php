@@ -1,10 +1,12 @@
 <?php
 
-namespace App\StorableEvents;
+namespace App\Domain\Merchant\Events;
 
 use Spatie\EventSourcing\StoredEvents\ShouldBeStored;
 
 class MerchantCreated extends ShouldBeStored
 {
-    public function __construct(public array $attributes) {}
+    public function __construct(public array $attributes)
+    {
+    }
 }
