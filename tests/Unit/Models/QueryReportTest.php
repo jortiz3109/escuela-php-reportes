@@ -168,6 +168,7 @@ class QueryReportTest extends TestCase
 
                 if ($currentRegister !== $previousRegister) {
                     $this->assertTrue($currentRegister > $previousRegister);
+
                     break;
                 }
             }
@@ -190,6 +191,7 @@ class QueryReportTest extends TestCase
 
                 if ($currentRegister !== $previousRegister) {
                     $this->assertTrue($currentRegister < $previousRegister);
+
                     break;
                 }
             }

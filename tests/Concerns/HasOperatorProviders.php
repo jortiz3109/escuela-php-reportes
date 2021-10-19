@@ -193,9 +193,9 @@ trait HasOperatorProviders
         return [
             'query merchants and transactions ordering data descending' => [
                 'filters' => [
-                    $this->makeFilter('merchants', 'name', null, null, 'desc'),
-                    $this->makeFilter('transactions', 'purchase_amount', null, null, 'desc'),
-                    $this->makeFilter('transactions', 'platform_amount', null, null, 'desc'),
+                    $this->makeFilter('merchants', 'name', order: 'desc'),
+                    $this->makeFilter('transactions', 'purchase_amount', order: 'desc'),
+                    $this->makeFilter('transactions', 'platform_amount', order: 'desc'),
                 ],
             ],
         ];
