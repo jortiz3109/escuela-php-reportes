@@ -17,5 +17,4 @@ class FormatContext
     {
         return $this->strategy->export($data);
     }
-
 }
