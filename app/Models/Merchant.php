@@ -20,8 +20,8 @@ class Merchant extends Model
         'uuid',
         'name',
         'url',
-        'country_uuid',
-        'currency_uuid',
+        'country_id',
+        'currency_id',
     ];
 
     public static function createWithAttributes(array $attributes): self
@@ -30,8 +30,8 @@ class Merchant extends Model
             'uuid' => $attributes['uuid'],
             'name' => $attributes['name'],
             'url' => $attributes['url'],
-            'country_uuid' => $attributes['country_uuid'],
-            'currency_uuid' => $attributes['currency_uuid'],
+            'country_id' => $attributes['country_id'],
+            'currency_id' => $attributes['currency_id'],
             'created_at' => $attributes['created_at'],
         ]);
     }
