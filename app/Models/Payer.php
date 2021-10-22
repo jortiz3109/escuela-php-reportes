@@ -17,8 +17,8 @@ class Payer extends Model
 
     public $fillable = [
         'uuid',
-        'email',
         'name',
+        'email',
         'created_at',
     ];
 
@@ -26,8 +26,8 @@ class Payer extends Model
     {
         return static::create([
             'uuid' => $attributes['uuid'],
-            'email' => $attributes['email'],
             'name' => $attributes['name'],
+            'email' => $attributes['email'],
             'created_at' => $attributes['created_at'],
         ]);
     }
