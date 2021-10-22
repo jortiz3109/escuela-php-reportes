@@ -4,5 +4,5 @@ namespace App\Exports\Contracts;
 
 interface FormatContract
 {
-    public function format($data);
+    public function export($data): bool;
 }

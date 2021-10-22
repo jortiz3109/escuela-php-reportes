@@ -5,10 +5,10 @@ namespace App\Exports\Formats;
 use App\Exports\Contracts\FormatContract;
 use Maatwebsite\Excel\Facades\Excel;
 
-class Xls implements FormatContract
+class XLSX implements FormatContract
 {
-    public function format($data)
+    public function export($data): bool
     {
-        Excel::store($data, 'report.xlsx');
+        return Excel::store($data, 'report.xlsx');
     }
 }

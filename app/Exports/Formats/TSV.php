@@ -5,9 +5,9 @@ namespace App\Exports\Formats;
 use App\Exports\Contracts\FormatContract;
 use Maatwebsite\Excel\Facades\Excel;
 
-class Tsv implements FormatContract
+class TSV implements FormatContract
 {
-    public function format($data)
+    public function export($data): bool
     {
         return Excel::store($data, 'report.tsv');
     }

@@ -3,24 +3,25 @@
 namespace App\Exports;
 
 use App\Exports\Contexts\FormatContext;
-use App\Exports\Formats\Csv;
-use App\Exports\Formats\Tsv;
-use App\Exports\Formats\Xls;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx\ContentTypes;
+use App\Exports\Contracts\FormatContract;
+use App\Exports\Formats\CSV;
+use App\Exports\Formats\TSV;
+use App\Exports\Formats\XLSX;
 
 class ExportStrategy
 {
-
-    static protected $formats = [
-        'xlsx'=>Xls::class,
-        'csv'=>Csv::class,
-        'tsv'=>Tsv::class,
+    protected static array $extensions = [
+        'xlsx' => XLSX::class,
+        'csv' => CSV::class,
+        'tsv' => TSV::class,
     ];
 
-    public static function applyFormat(string $format, $data)
+    public static function applyFormat(string $extension, $data): bool
     {
-        $strategy = new self::$formats[$format];
-        $context = new FormatContext($strategy);
+        /** @var FormatContract $extensionStrategy */
+        $extensionStrategy = new self::$extensions[$extension]();
+
+        $context = new FormatContext($extensionStrategy);
 
         return $context->executeStrategy($data);
     }

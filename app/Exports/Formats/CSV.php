@@ -5,9 +5,9 @@ namespace App\Exports\Formats;
 use App\Exports\Contracts\FormatContract;
 use Maatwebsite\Excel\Facades\Excel;
 
-class Csv implements FormatContract
+class CSV implements FormatContract
 {
-    public function format($data)
+    public function export($data): bool
     {
         return Excel::store($data, 'report.csv');
     }
