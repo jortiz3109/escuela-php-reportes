@@ -18,8 +18,8 @@ class Merchant extends Model
 
     public $fillable = [
         'uuid',
-        'name',
         'url',
+        'name',
         'country_id',
         'currency_id',
     ];
@@ -28,8 +28,8 @@ class Merchant extends Model
     {
         return static::create([
             'uuid' => $attributes['uuid'],
-            'name' => $attributes['name'],
             'url' => $attributes['url'],
+            'name' => $attributes['name'],
             'country_id' => $attributes['country_id'],
             'currency_id' => $attributes['currency_id'],
             'created_at' => $attributes['created_at'],
