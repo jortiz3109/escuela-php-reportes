@@ -14,7 +14,6 @@ class CreateFieldsTable extends Migration
             $table->id();
             $table->string('name', 30);
             $table->enum('table_name', ExportModels::EXPORTABLE_MODELS);
-            $table->char('priority', 3)->nullable();
             $table->enum('order', [Fields::ORDER_ASC, Fields::ORDER_DESC])->default(Fields::ORDER_ASC);
             $table->enum('operator', Fields::OPERATORS)->nullable();
             $table->string('value', 100)->nullable();
