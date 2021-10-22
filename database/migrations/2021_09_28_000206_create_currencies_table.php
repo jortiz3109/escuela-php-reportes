@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateCurrenciesTable extends Migration
@@ -10,7 +11,7 @@ class CreateCurrenciesTable extends Migration
     {
         Schema::create('currencies', function (Blueprint $table) {
             $table->tinyIncrements('id');
-            $table->binary('uuid');
+            $table->binaryUuid('uuid')->unique();
             $table->char('alphabetic_code', 3)->unique();
             $table->char('numeric_code', 3)->unique();
             $table->char('minor_unit', 1)->default('0');

@@ -35,21 +35,13 @@ class TransactionFactory extends Factory
             'truncated_pan' => $this->faker->creditCardNumber(),
             'status' => $this->faker->randomElement(Transactions::STATUSES),
             'ip' => $this->faker->ipv4(),
-            'device_uuid' => Device::factory()->create()->getAttribute('uuid'),
-            'payer_uuid' => Payer::factory()->create()->getAttribute('uuid'),
-            'buyer_uuid' => Buyer::factory()->create()->getAttribute('uuid'),
-            'merchant_uuid' => $merchants->isEmpty() ? Merchant::factory()->create()->getAttribute(
-                'uuid'
-            ) : $merchants->random()->uuid,
-            'payment_method_uuid' => $paymentMethods->isEmpty() ? PaymentMethod::factory()->create()->getAttribute(
-                'uuid'
-            ) : $paymentMethods->random()->uuid,
-            'currency_uuid' => $currencies->isEmpty() ? Currency::factory()->create()->getAttribute(
-                'uuid'
-            ) : $currencies->random()->uuid,
-            'country_uuid' => $countries->isEmpty() ? Country::factory()->create()->getAttribute(
-                'uuid'
-            ) : $countries->random()->uuid,
+            'device_id' => Device::factory()->create()->getKey(),
+            'payer_id' => Payer::factory()->create()->getKey(),
+            'buyer_id' => Buyer::factory()->create()->getKey(),
+            'merchant_id' => $merchants->isEmpty() ? Merchant::factory()->create()->getKey() : $merchants->random()->id,
+            'payment_method_id' => $paymentMethods->isEmpty() ? PaymentMethod::factory()->create()->getKey() : $paymentMethods->random()->id,
+            'currency_id' => $currencies->isEmpty() ? Currency::factory()->create()->getKey() : $currencies->random()->id,
+            'country_id' => $countries->isEmpty() ? Country::factory()->create()->getKey() : $countries->random()->id,
         ];
     }
 }

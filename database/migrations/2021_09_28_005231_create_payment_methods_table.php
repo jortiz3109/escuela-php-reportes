@@ -10,7 +10,7 @@ class CreatePaymentMethodsTable extends Migration
     {
         Schema::create('payment_methods', function (Blueprint $table) {
             $table->tinyIncrements('id');
-            $table->binary('uuid');
+            $table->binaryUuid('uuid')->unique();
             $table->string('name', 50)->index();
             $table->timestamp('created_at');
         });

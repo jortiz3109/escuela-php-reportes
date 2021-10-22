@@ -23,8 +23,8 @@ class MerchantFactory extends Factory
             'uuid' => $this->faker->uuid(),
             'name' => $this->faker->unique()->name(),
             'url' => $this->faker->url(),
-            'country_uuid' => $countries->isEmpty()? Country::factory()->create()->getAttribute('uuid') : $countries->random()->uuid,
-            'currency_uuid' => $currencies->isEmpty()? Currency::factory()->create()->getAttribute('uuid') : $currencies->random()->uuid,
+            'country_id' => $countries->isEmpty()? Country::factory()->create()->getKey() : $countries->random()->id,
+            'currency_id' => $currencies->isEmpty()? Currency::factory()->create()->getKey() : $currencies->random()->id,
         ];
     }
 }

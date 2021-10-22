@@ -10,7 +10,7 @@ class CreateMerchantsTable extends Migration
     {
         Schema::create('merchants', function (Blueprint $table) {
             $table->id();
-            $table->binary('uuid');
+            $table->binaryUuid('uuid')->unique();
             $table->string('name', 100)->unique();
             $table->string('url');
             $table->unsignedTinyInteger('country_id');

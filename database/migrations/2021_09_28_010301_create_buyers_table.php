@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateBuyersTable extends Migration
@@ -10,7 +11,7 @@ class CreateBuyersTable extends Migration
     {
         Schema::create('buyers', function (Blueprint $table) {
             $table->id();
-            $table->binary('uuid');
+            $table->binaryUuid('uuid')->unique();
             $table->string('name', 100);
             $table->string('email', 100)->index();
             $table->timestamp('created_at');
