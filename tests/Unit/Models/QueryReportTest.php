@@ -105,10 +105,10 @@ class QueryReportTest extends TestCase
         $this->assertCount($expectCount, $reports);
         foreach ($fields as $field) {
             $columnName = $field['table_name'] . '_' . $field['name'];
-            if(is_array($field['value'])) {
+            if (is_array($field['value'])) {
                 $this->assertNotFalse(array_search($field['value'][0], array_column($reports, $columnName)));
                 $this->assertNotFalse(array_search($field['value'][1], array_column($reports, $columnName)));
-            } elseif($field['value'] !== null) {
+            } elseif ($field['value'] !== null) {
                 $this->assertNotFalse(array_search($field['value'], array_column($reports, $columnName)));
             }
             $this->assertArrayHasKey($columnName, $reports[0]);

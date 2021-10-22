@@ -11,8 +11,7 @@ class Fields
     public const OPERATOR_GEQ = '>=';
     public const OPERATOR_LT = '<';
     public const OPERATOR_GT = '>';
-    public const OPERATOR_DT = '!=';
-    public const OPERATOR_BT = 'BETWEEN';
+    public const OPERATOR_BT = 'between';
 
     public const OPERATORS = [
         self::OPERATOR_EQ,
@@ -20,7 +19,6 @@ class Fields
         self::OPERATOR_LEQ,
         self::OPERATOR_GT,
         self::OPERATOR_LT,
-        self::OPERATOR_DT,
         self::OPERATOR_BT,
     ];
 
@@ -92,7 +90,8 @@ class Fields
                 self::PAYER_FIELDS,
                 self::BUYER_FIELDS,
                 self::PAYMENT_METHOD_FIELDS,
-            ), SORT_REGULAR
+            ),
+            SORT_REGULAR
         );
     }
 

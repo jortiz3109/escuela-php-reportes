@@ -9,5 +9,5 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    const UPDATED_AT = null;
+    public const UPDATED_AT = null;
 }
