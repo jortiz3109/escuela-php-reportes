@@ -11,21 +11,29 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->unique();
+            $table->binary('uuid');
             $table->string('reference', 50)->unique();
             $table->unsignedBigInteger('purchase_amount');
             $table->unsignedBigInteger('platform_amount');
-            $table->string('truncated_pan', 20);
+            $table->string('truncated_pan', 20)->index();
             $table->enum('status', Transactions::STATUSES)->index();
-            $table->ipAddress('ip')->index();
-            $table->foreignUuid('device_uuid')->constrained('devices', 'uuid');
-            $table->foreignUuid('payer_uuid')->nullable()->constrained('payers', 'uuid');
-            $table->foreignUuid('buyer_uuid')->nullable()->constrained('buyers', 'uuid');
-            $table->foreignUuid('merchant_uuid')->constrained('merchants', 'uuid');
-            $table->foreignUuid('payment_method_uuid')->constrained('payment_methods', 'uuid');
-            $table->foreignUuid('currency_uuid')->constrained('currencies', 'uuid');
-            $table->foreignUuid('country_uuid')->constrained('countries', 'uuid');
+            $table->ipAddress('ip');
+            $table->unsignedBigInteger('device_id');
+            $table->unsignedBigInteger('payer_id');
+            $table->unsignedBigInteger('buyer_id');
+            $table->unsignedBigInteger('merchant_id');
+            $table->unsignedTinyInteger('payment_method_id');
+            $table->unsignedTinyInteger('currency_id');
             $table->timestamp('created_at')->index();
+
+            $table->foreign('device_id')->references('id')->on('devices');
+            $table->foreign('payer_id')->references('id')->on('payers');
+            $table->foreign('buyer_id')->references('id')->on('buyers');
+            $table->foreign('merchant_id')->references('id')->on('merchants');
+            $table->foreign('payment_method_id')->references('id')->on('payment_methods');
+            $table->foreign('currency_id')->references('id')->on('currencies');
+
+            $table->index(['reference', 'status', 'merchant_id']);
         });
     }
 

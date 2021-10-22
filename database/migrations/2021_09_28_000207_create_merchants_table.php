@@ -10,12 +10,15 @@ class CreateMerchantsTable extends Migration
     {
         Schema::create('merchants', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->unique();
+            $table->binary('uuid');
             $table->string('name', 100)->unique();
             $table->string('url');
-            $table->foreignUuid('country_uuid')->constrained('countries', 'uuid');
-            $table->foreignUuid('currency_uuid')->constrained('currencies', 'uuid');
-            $table->timestamp('created_at')->index();
+            $table->unsignedTinyInteger('country_id');
+            $table->unsignedTinyInteger('currency_id');
+            $table->timestamp('created_at');
+
+            $table->foreign('country_id')->references('id')->on('countries');
+            $table->foreign('currency_id')->references('id')->on('currencies');
         });
     }
 
