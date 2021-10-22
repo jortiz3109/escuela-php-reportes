@@ -11,7 +11,7 @@ class Filter
     {
     }
 
-    public function buildQuery(): Filter
+    public function buildQuery(): self
     {
         foreach ($this->filters as $filter) {
             $columnName = $filter['table_name'] . '_' . $filter['name'];
@@ -21,7 +21,7 @@ class Filter
         return $this->select()->orderBy();
     }
 
-    public function select(): Filter
+    public function select(): self
     {
         $selected = array_map(fn ($field) => $field['table_name'] . '_' . $field['name'], $this->filters);
 
@@ -30,7 +30,7 @@ class Filter
         return $this;
     }
 
-    public function orderBy(): Filter
+    public function orderBy(): self
     {
         return $this;
     }

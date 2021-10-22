@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCountriesTable extends Migration
 {
-    public function up():void
+    public function up(): void
     {
         Schema::create('countries', function (Blueprint $table) {
             $table->tinyIncrements('id');
