@@ -17,11 +17,11 @@ class Transaction extends Model
     public $fillable = [
         'uuid',
         'reference',
-        'purchase_amount',
         'platform_amount',
+        'purchase_amount',
         'truncated_pan',
-        'status',
         'ip',
+        'status',
         'device_id',
         'payer_id',
         'buyer_id',
