@@ -17,6 +17,6 @@ class NullOperatorTest extends TestCase
 
         $query = $operator->apply(QueryReport::query(), 'transaction_create_at', null);
 
-        $this->assertEquals('select * from `query_reports_view`', $query->toSql());
+        $this->assertEquals(QueryReport::query()->toSql(), $query->toSql());
     }
 }
