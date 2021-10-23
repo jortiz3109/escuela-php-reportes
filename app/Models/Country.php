@@ -28,6 +28,6 @@ class Country extends Model
     {
         event(new CountryCreated($attributes));
 
-        return static::uuid($attributes['uuid']);
+        return static::getByUuid($attributes['uuid']);
     }
 }

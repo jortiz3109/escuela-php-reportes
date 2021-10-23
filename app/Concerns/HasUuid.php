@@ -7,7 +7,7 @@ namespace App\Concerns;
  */
 trait HasUuid
 {
-    public static function uuid(string $uuid): ?self
+    public static function getByUuid(string $uuid): ?self
     {
         return static::where('uuid', $uuid)->first();
     }

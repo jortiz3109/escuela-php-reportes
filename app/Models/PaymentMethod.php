@@ -28,6 +28,6 @@ class PaymentMethod extends Model
     {
         event(new PaymentMethodCreated($attributes));
 
-        return static::uuid($attributes['uuid']);
+        return static::getByUuid($attributes['uuid']);
     }
 }

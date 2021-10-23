@@ -29,6 +29,6 @@ class Currency extends Model
     {
         event(new CurrencyCreated($attributes));
 
-        return static::uuid($attributes['uuid']);
+        return static::getByUuid($attributes['uuid']);
     }
 }
