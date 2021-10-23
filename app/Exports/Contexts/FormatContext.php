@@ -2,14 +2,14 @@
 
 namespace App\Exports\Contexts;
 
-use App\Exports\Contracts\FormatContract;
+use App\Exports\Contracts\FormatBase;
 use Illuminate\Database\Eloquent\Builder;
 
 class FormatContext
 {
-    private FormatContract $strategy;
+    private FormatBase $strategy;
 
-    public function __construct(FormatContract $strategy)
+    public function __construct(FormatBase $strategy)
     {
         $this->strategy = $strategy;
     }

@@ -2,9 +2,11 @@
 
 namespace Exports;
 
+use App\Exports\Contracts\FormatBase;
 use App\Exports\ExportStrategy;
 use App\Exports\ReportExport;
 use App\Models\QueryReport;
+use Carbon\Carbon;
 use Database\Seeders\DatabaseTestSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -21,6 +23,7 @@ class ReportExportTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        Carbon::setTestNow();
         $this->seed(DatabaseTestSeeder::class);
     }
 
@@ -34,7 +37,7 @@ class ReportExportTest extends TestCase
 
         ExportStrategy::applyFormat($extension, QueryReport::filter($filters));
 
-        Excel::assertQueued('report.xlsx', fn (ReportExport $export) => true);
+        Excel::assertQueued(FormatBase::fileName() . '.xlsx', fn (ReportExport $export) => true);
     }
 
     /**
@@ -47,7 +50,7 @@ class ReportExportTest extends TestCase
 
         ExportStrategy::applyFormat($extension, QueryReport::filter($filters));
 
-        Excel::assertQueued('report.csv', fn (ReportExport $export) => true);
+        Excel::assertQueued(FormatBase::fileName() . '.csv', fn (ReportExport $export) => true);
     }
 
     /**
@@ -60,6 +63,6 @@ class ReportExportTest extends TestCase
 
         ExportStrategy::applyFormat($extension, QueryReport::filter($filters));
 
-        Excel::assertQueued('report.tsv', fn (ReportExport $export) => true);
+        Excel::assertQueued(FormatBase::fileName() . '.tsv', fn (ReportExport $export) => true);
     }
 }

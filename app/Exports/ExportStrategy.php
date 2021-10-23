@@ -3,7 +3,7 @@
 namespace App\Exports;
 
 use App\Exports\Contexts\FormatContext;
-use App\Exports\Contracts\FormatContract;
+use App\Exports\Contracts\FormatBase;
 use App\Exports\Formats\CSV;
 use App\Exports\Formats\TSV;
 use App\Exports\Formats\XLSX;
@@ -19,7 +19,7 @@ class ExportStrategy
 
     public static function applyFormat(string $extension, Builder $builder): void
     {
-        /** @var FormatContract $extensionStrategy */
+        /** @var FormatBase $extensionStrategy */
         $extensionStrategy = new self::$extensions[$extension]();
 
         $context = new FormatContext($extensionStrategy);
