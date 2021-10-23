@@ -3,6 +3,7 @@
 namespace App\Exports\Contexts;
 
 use App\Exports\Contracts\FormatContract;
+use Illuminate\Database\Eloquent\Builder;
 
 class FormatContext
 {
@@ -13,8 +14,8 @@ class FormatContext
         $this->strategy = $strategy;
     }
 
-    public function executeStrategy($data): bool
+    public function execute(Builder $builder): void
     {
-        return $this->strategy->export($data);
+        $this->strategy->export($builder);
     }
 }

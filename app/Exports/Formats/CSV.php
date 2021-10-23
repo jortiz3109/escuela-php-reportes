@@ -3,12 +3,13 @@
 namespace App\Exports\Formats;
 
 use App\Exports\Contracts\FormatContract;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ReportExport;
+use Illuminate\Database\Eloquent\Builder;
 
 class CSV implements FormatContract
 {
-    public function export($data): bool
+    public function export(Builder $builder): void
     {
-        return Excel::store($data, 'report.csv');
+        (new ReportExport($builder))->queue('report.csv');
     }
 }

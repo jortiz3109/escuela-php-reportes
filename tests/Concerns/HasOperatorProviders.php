@@ -6,6 +6,8 @@ use App\Constants\Fields;
 
 trait HasOperatorProviders
 {
+    use HasFiltersProvider;
+
     public function operatorEQProvider(): array
     {
         return [
@@ -172,16 +174,6 @@ trait HasOperatorProviders
                 ],
                 'expectCount' => 12,
             ],
-        ];
-    }
-
-    public function makeFilter(array|string|null $value, string $tableName, string $name, ?string $operator = null): array
-    {
-        return [
-            'name' => $name,
-            'table_name' => $tableName,
-            'operator' => $operator,
-            'value' => $value,
         ];
     }
 }
