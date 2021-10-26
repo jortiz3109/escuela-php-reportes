@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class QueryReportFactory
  * @method QueryReport create($attributes = [], ?Model $parent = null)
  */
 class QueryReportFactory extends Factory
