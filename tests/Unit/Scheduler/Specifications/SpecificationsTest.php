@@ -3,13 +3,13 @@
 namespace Tests\Unit\Scheduler\Specifications;
 
 use App\Constants\Schedule as ScheduleConstant;
-use Tests\TestCase;
 use App\Models\Report;
 use App\Models\Schedule;
-use Illuminate\Support\Carbon;
-use Tests\Concerns\HasSchedulerProviders;
 use App\Scheduler\Traits\SetCurrentDateTrait;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
+use Tests\Concerns\HasSchedulerProviders;
+use Tests\TestCase;
 
 class SpecificationsTest extends TestCase
 {
@@ -18,7 +18,6 @@ class SpecificationsTest extends TestCase
     use HasSchedulerProviders;
 
     /**
-     *
      * @test
      * @dataProvider schedulerSpecificationsSuccessTest
      * @param $specification
@@ -31,11 +30,9 @@ class SpecificationsTest extends TestCase
         $schedule = $this->createSchedule($schedule);
         $hasMinutesHours = new $specification['specification_class']($schedule);
         $this->assertTrue($hasMinutesHours->asQuery());
-
     }
 
     /**
-     *
      * @test
      * @dataProvider schedulerSpecificationsFailTest
      * @param $specification
@@ -48,9 +45,7 @@ class SpecificationsTest extends TestCase
         $schedule = $this->createSchedule($schedule);
         $hasMinutesHours = new $specification['specification_class']($schedule);
         $this->assertFalse($hasMinutesHours->asQuery());
-
     }
-
 
     public function createSchedule(array $cronExpression): Schedule
     {
@@ -60,7 +55,7 @@ class SpecificationsTest extends TestCase
             ScheduleConstant::DAY_MONTH => $cronExpression[ScheduleConstant::DAY_MONTH] ?: '*',
             ScheduleConstant::MONTH => $cronExpression[ScheduleConstant::MONTH] ?: '*',
             ScheduleConstant::DAY_WEEK => $cronExpression[ScheduleConstant::DAY_WEEK] ?: '*',
-            'report_id' => Report::create()->id
+            'report_id' => Report::create()->id,
         ]);
     }
 }

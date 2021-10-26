@@ -17,14 +17,14 @@ trait HasSchedulerProviders
                     ScheduleConstants::HOUR => 8,
                     ScheduleConstants::DAY_MONTH => '*',
                     ScheduleConstants::MONTH => '*',
-                    ScheduleConstants::DAY_WEEK => '*'
+                    ScheduleConstants::DAY_WEEK => '*',
                 ],
                 'setTimeTest' => [
                     ScheduleConstants::YEAR => 2021,
                     ScheduleConstants::MONTH => 10,
                     ScheduleConstants::DAY_MONTH => 22,
                     ScheduleConstants::HOUR => 8,
-                    ScheduleConstants::MINUTE => 20]
+                    ScheduleConstants::MINUTE => 20, ],
             ],
 
             'At every minute on day-of-month 9 a report will be execute' => [
@@ -33,14 +33,14 @@ trait HasSchedulerProviders
                     ScheduleConstants::HOUR => 20,
                     ScheduleConstants::DAY_MONTH => 9,
                     ScheduleConstants::MONTH => '*',
-                    ScheduleConstants::DAY_WEEK => '*'
+                    ScheduleConstants::DAY_WEEK => '*',
                 ],
                 'setTimeTest' => [
                     ScheduleConstants::YEAR => 2021,
                     ScheduleConstants::MONTH => 10,
                     ScheduleConstants::DAY_MONTH => 9,
                     ScheduleConstants::HOUR => 20,
-                    ScheduleConstants::MINUTE => 20]
+                    ScheduleConstants::MINUTE => 20, ],
             ],
 
             'At every minute in December a report will be execute' => [
@@ -49,14 +49,14 @@ trait HasSchedulerProviders
                     ScheduleConstants::HOUR => 8,
                     ScheduleConstants::DAY_MONTH => 9,
                     ScheduleConstants::MONTH => 10,
-                    ScheduleConstants::DAY_WEEK => '*'
+                    ScheduleConstants::DAY_WEEK => '*',
                 ],
                 'setTimeTest' => [
                     ScheduleConstants::YEAR => 2021,
                     ScheduleConstants::MONTH => 10,
                     ScheduleConstants::DAY_MONTH => 9,
                     ScheduleConstants::HOUR => 8,
-                    ScheduleConstants::MINUTE => 20]
+                    ScheduleConstants::MINUTE => 20, ],
             ],
 
             'At every minute on day-of-month 10 a report will be execute' => [
@@ -65,16 +65,16 @@ trait HasSchedulerProviders
                     ScheduleConstants::HOUR => 8,
                     ScheduleConstants::DAY_MONTH => 22,
                     ScheduleConstants::MONTH => 10,
-                    ScheduleConstants::DAY_WEEK => 5
+                    ScheduleConstants::DAY_WEEK => 5,
                 ],
                 'setTimeTest' => [
                     ScheduleConstants::YEAR => 2021,
                     ScheduleConstants::MONTH => 10,
                     ScheduleConstants::DAY_MONTH => 22,
                     ScheduleConstants::HOUR => 8,
-                    ScheduleConstants::MINUTE => 20
-                ]
-            ]
+                    ScheduleConstants::MINUTE => 20,
+                ],
+            ],
         ];
     }
 
@@ -87,14 +87,14 @@ trait HasSchedulerProviders
                     ScheduleConstants::HOUR => 7,
                     ScheduleConstants::DAY_MONTH => '*',
                     ScheduleConstants::MONTH => '*',
-                    ScheduleConstants::DAY_WEEK => '*'
+                    ScheduleConstants::DAY_WEEK => '*',
                 ],
                 'setTimeTest' => [
                     ScheduleConstants::YEAR => 2021,
                     ScheduleConstants::MONTH => 10,
                     ScheduleConstants::DAY_MONTH => 22,
                     ScheduleConstants::HOUR => 8,
-                    ScheduleConstants::MINUTE => 20]
+                    ScheduleConstants::MINUTE => 20, ],
             ],
 
             'At every minute on day-of-month 9 a report will be execute' => [
@@ -103,14 +103,14 @@ trait HasSchedulerProviders
                     ScheduleConstants::HOUR => 20,
                     ScheduleConstants::DAY_MONTH => 8,
                     ScheduleConstants::MONTH => '*',
-                    ScheduleConstants::DAY_WEEK => '*'
+                    ScheduleConstants::DAY_WEEK => '*',
                 ],
                 'setTimeTest' => [
                     ScheduleConstants::YEAR => 2021,
                     ScheduleConstants::MONTH => 10,
                     ScheduleConstants::DAY_MONTH => 9,
                     ScheduleConstants::HOUR => 20,
-                    ScheduleConstants::MINUTE => 20]
+                    ScheduleConstants::MINUTE => 20, ],
             ],
 
             'At every minute in December a report will be execute' => [
@@ -119,14 +119,14 @@ trait HasSchedulerProviders
                     ScheduleConstants::HOUR => 8,
                     ScheduleConstants::DAY_MONTH => 9,
                     ScheduleConstants::MONTH => 11,
-                    ScheduleConstants::DAY_WEEK => '*'
+                    ScheduleConstants::DAY_WEEK => '*',
                 ],
                 'setTimeTest' => [
                     ScheduleConstants::YEAR => 2021,
                     ScheduleConstants::MONTH => 10,
                     ScheduleConstants::DAY_MONTH => 9,
                     ScheduleConstants::HOUR => 8,
-                    ScheduleConstants::MINUTE => 20]
+                    ScheduleConstants::MINUTE => 20, ],
             ],
 
             'At every minute on day-of-month 10 a report will be execute' => [
@@ -135,16 +135,16 @@ trait HasSchedulerProviders
                     ScheduleConstants::HOUR => 8,
                     ScheduleConstants::DAY_MONTH => 22,
                     ScheduleConstants::MONTH => 10,
-                    ScheduleConstants::DAY_WEEK => 6
+                    ScheduleConstants::DAY_WEEK => 6,
                 ],
                 'setTimeTest' => [
                     ScheduleConstants::YEAR => 2021,
                     ScheduleConstants::MONTH => 10,
                     ScheduleConstants::DAY_MONTH => 22,
                     ScheduleConstants::HOUR => 8,
-                    ScheduleConstants::MINUTE => 20
-                ]
-            ]
+                    ScheduleConstants::MINUTE => 20,
+                ],
+            ],
         ];
     }
 
@@ -161,7 +161,7 @@ trait HasSchedulerProviders
                     ScheduleConstants::DAY_MONTH => null,
                     ScheduleConstants::MONTH => null,
                     ScheduleConstants::DAY_WEEK => null,
-                ]
+                ],
             ],
 
             'Current specification compatibility HasMinutesHoursDays' => [
@@ -174,8 +174,8 @@ trait HasSchedulerProviders
                     ScheduleConstants::DAY_MONTH => 31,
                     ScheduleConstants::MONTH => null,
                     ScheduleConstants::DAY_WEEK => null,
-                ]
-            ]
+                ],
+            ],
         ];
     }
 
@@ -192,7 +192,7 @@ trait HasSchedulerProviders
                     ScheduleConstants::DAY_MONTH => 50,
                     ScheduleConstants::MONTH => null,
                     ScheduleConstants::DAY_WEEK => null,
-                ]
+                ],
             ],
 
             'Current specification compatibility HasMinutesHoursDays' => [
@@ -205,8 +205,8 @@ trait HasSchedulerProviders
                     ScheduleConstants::DAY_MONTH => null,
                     ScheduleConstants::MONTH => 30,
                     ScheduleConstants::DAY_WEEK => null,
-                ]
-            ]
+                ],
+            ],
         ];
     }
 }

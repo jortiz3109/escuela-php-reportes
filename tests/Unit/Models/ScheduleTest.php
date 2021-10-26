@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Models;
 
-use Tests\TestCase;
 use App\Models\Schedule;
-use Illuminate\Support\Facades\Cache;
 use App\Scheduler\Traits\SetCurrentDateTrait;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Cache;
+use Tests\TestCase;
 
 class ScheduleTest extends TestCase
 {
@@ -23,8 +23,7 @@ class ScheduleTest extends TestCase
 
         //TODO validate the test is not working into the once method call, 'cause test is invalid as it is right now
         Cache::shouldReceive('remember')
-            ->with('scheduledHourlyReports' ,60, \Closure::class )
+            ->with('scheduledHourlyReports', 60, \Closure::class)
             ->andReturn($schedule);
-
     }
 }

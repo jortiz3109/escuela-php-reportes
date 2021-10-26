@@ -2,15 +2,15 @@
 
 namespace Tests\Feature\Console;
 
-use Tests\TestCase;
+use App\Events\CreateScheduledReport;
 use App\Models\Report;
 use App\Models\Schedule;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Event;
-use App\Events\CreateScheduledReport;
 use Tests\Concerns\HasSchedulerProviders;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class CommandsTest extends TestCase
 {
@@ -71,6 +71,5 @@ class CommandsTest extends TestCase
             ->assertExitCode(0);
 
         Event::assertNotDispatched(CreateScheduledReport::class);
-
     }
 }

@@ -6,9 +6,9 @@ use App\Constants\Schedule as ScheduleConstant;
 use App\Models\Report;
 use App\Models\Schedule;
 use App\Scheduler\Scheduler;
-use Tests\TestCase;
 use App\Scheduler\Traits\SetCurrentDateTrait;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class SchedulerTest extends TestCase
 {
@@ -30,7 +30,7 @@ class SchedulerTest extends TestCase
                 ScheduleConstant::DAY_MONTH => $this->dayMonth,
                 ScheduleConstant::MONTH => $this->month,
                 ScheduleConstant::DAY_WEEK => $this->dayWeek,
-                'report_id' => $this->report->id
+                'report_id' => $this->report->id,
             ]);
     }
 

@@ -30,14 +30,13 @@ class ScheduleFactory extends Factory
             'day_week' => $this->cronFormat(0, 6),
             'report_id' => Report::factory()->create(),
         ];
-
     }
 
     public function cronFormat($firstNumber, $lastNumber): string
     {
         return $this->faker->randomElement([
             $this->faker->numberBetween($firstNumber, $lastNumber),
-            '*'
+            '*',
         ]);
     }
 }

@@ -3,12 +3,10 @@
 namespace App\Scheduler\Specifications;
 
 use App\Constants\Schedule as ScheduleConstant;
-use App\Scheduler\Traits\SetCurrentDateTrait;
-use Carbon\Carbon;
 use App\Models\Schedule;
-use Carbon\CarbonImmutable;
-use Illuminate\Support\Facades\Validator;
 use App\Scheduler\Contracts\Specification;
+use App\Scheduler\Traits\SetCurrentDateTrait;
+use Illuminate\Support\Facades\Validator;
 
 abstract class AbstractSpecification implements Specification
 {

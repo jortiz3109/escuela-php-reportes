@@ -2,7 +2,6 @@
 
 namespace App\Console;
 
-use App\Models\Schedule as ScheduleReport;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Artisan;
@@ -26,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-       $schedule->command('report:run')
+        $schedule->command('report:run')
            ->everyMinute()
            //TODO Inspect how to use those methods in benefit of the report scheduling state *->pingBefore($url) ->thenPing($url)
            //TODO->onSuccess('handle a log event, or update panel system. Define with team.')

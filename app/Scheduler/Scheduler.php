@@ -8,8 +8,6 @@ use App\Scheduler\Specifications\HasMinutesHoursDays;
 use App\Scheduler\Specifications\HasMinutesHoursDaysMonth;
 use App\Scheduler\Specifications\HasMinutesHoursDaysMonthWeek;
 use App\Scheduler\Traits\SetCurrentDateTrait;
-use Carbon\Carbon;
-use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Cache;
 
 class Scheduler
@@ -35,9 +33,8 @@ class Scheduler
             if ($this->validateSpecifications($schedule) === true) {
                 print_r('A report with id ' . $schedule->report_id . ' was created');
             }
-            continue 1;
+            continue;
         }
-
     }
 
     public function validateSpecifications(Schedule $schedule): bool
@@ -51,5 +48,4 @@ class Scheduler
         }
         return false;
     }
-
 }

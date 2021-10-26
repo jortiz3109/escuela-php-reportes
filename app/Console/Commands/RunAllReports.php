@@ -2,10 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Constants\Schedule as ScheduleConstants;
-use App\Models\Schedule;
 use App\Scheduler\Scheduler;
-use Carbon\CarbonImmutable;
 use Illuminate\Console\Command;
 
 class RunAllReports extends Command
