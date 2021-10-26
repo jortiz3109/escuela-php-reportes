@@ -215,20 +215,4 @@ trait HasOperatorProviders
             ],
         ];
     }
-
-    public function makeFilter(
-        string $tableName,
-        string $name,
-        ?string $operator = null,
-        array|string|null $value = null,
-        ?string $order = 'asc'
-    ): array {
-        return [
-            'table_name' => $tableName,
-            'name' => $name,
-            'operator' => $operator,
-            'value' => $value,
-            'order' => $order,
-        ];
-    }
 }
