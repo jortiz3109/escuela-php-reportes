@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Concerns\HasUuid;
-use App\Domain\PaymentMethod\Events\PaymentMethodCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
