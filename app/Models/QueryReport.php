@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class QueryReport
  * @method static Builder filter(array $filters)
  * @method static QueryReportFactory factory(...$parameters)
  */
