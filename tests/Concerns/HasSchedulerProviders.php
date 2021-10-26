@@ -3,6 +3,8 @@
 namespace Tests\Concerns;
 
 use App\Constants\Schedule as ScheduleConstants;
+use App\Scheduler\Specifications\HasMinutesHours;
+use App\Scheduler\Specifications\HasMinutesHoursDays;
 
 trait HasSchedulerProviders
 {
@@ -141,6 +143,68 @@ trait HasSchedulerProviders
                     ScheduleConstants::DAY_MONTH => 22,
                     ScheduleConstants::HOUR => 8,
                     ScheduleConstants::MINUTE => 20
+                ]
+            ]
+        ];
+    }
+
+    public function schedulerSpecificationsSuccessTest()
+    {
+        return [
+            'Current specification compatibility HasMinutesHours' => [
+                'specification' => [
+                    'specification_class' => HasMinutesHours::class,
+                    ],
+                'schedule' => [
+                    ScheduleConstants::MINUTE => 50,
+                    ScheduleConstants::HOUR => 10,
+                    ScheduleConstants::DAY_MONTH => null,
+                    ScheduleConstants::MONTH => null,
+                    ScheduleConstants::DAY_WEEK => null,
+                ]
+            ],
+
+            'Current specification compatibility HasMinutesHoursDays' => [
+                'specification' => [
+                    'specification_class' => HasMinutesHoursDays::class,
+                ],
+                'schedule' => [
+                    ScheduleConstants::MINUTE => 50,
+                    ScheduleConstants::HOUR => 10,
+                    ScheduleConstants::DAY_MONTH => 31,
+                    ScheduleConstants::MONTH => null,
+                    ScheduleConstants::DAY_WEEK => null,
+                ]
+            ]
+        ];
+    }
+
+    public function schedulerSpecificationsFailTest()
+    {
+        return [
+            'Current specification compatibility HasMinutesHours' => [
+                'specification' => [
+                    'specification_class' => HasMinutesHours::class,
+                ],
+                'schedule' => [
+                    ScheduleConstants::MINUTE => 10,
+                    ScheduleConstants::HOUR => null,
+                    ScheduleConstants::DAY_MONTH => 50,
+                    ScheduleConstants::MONTH => null,
+                    ScheduleConstants::DAY_WEEK => null,
+                ]
+            ],
+
+            'Current specification compatibility HasMinutesHoursDays' => [
+                'specification' => [
+                    'specification_class' => HasMinutesHoursDays::class,
+                ],
+                'schedule' => [
+                    ScheduleConstants::MINUTE => 50,
+                    ScheduleConstants::HOUR => 10,
+                    ScheduleConstants::DAY_MONTH => null,
+                    ScheduleConstants::MONTH => 30,
+                    ScheduleConstants::DAY_WEEK => null,
                 ]
             ]
         ];
