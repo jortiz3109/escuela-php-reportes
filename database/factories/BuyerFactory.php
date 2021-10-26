@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Buyer;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use JetBrains\PhpStorm\ArrayShape;
 
 class BuyerFactory extends Factory
 {

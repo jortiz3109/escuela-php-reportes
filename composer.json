@@ -20,7 +20,8 @@
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.3.3"
+        "phpunit/phpunit": "^9.3.3",
+        "vimeo/psalm": "^4.10"
     },
     "autoload": {
         "psr-4": {
@@ -35,8 +36,6 @@
         }
     },
     "scripts": {
-        "php-cs-fixer": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php",
-        "phpcs_validate": "vendor/bin/php-cs-fixer fix --dry-run --diff --config=.php-cs-fixer.php",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
@@ -49,7 +48,12 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ]
+        ],
+        "psalm": "vendor/bin/psalm",
+        "test": "vendor/bin/phpunit",
+        "testdox": "XDEBUG_MODE=coverage vendor/bin/phpunit --testdox --coverage-clover coverage.xml",
+        "php-cs-fixer": "vendor/bin/php-cs-fixer fix --using-cache=no",
+        "php-cs-fixer-check": "vendor/bin/php-cs-fixer fix --dry-run --diff"
     },
     "extra": {
         "laravel": {
