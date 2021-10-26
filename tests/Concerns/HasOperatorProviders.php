@@ -180,9 +180,9 @@ trait HasOperatorProviders
         return [
             'fields are ordered in same order that is sent' => [
                 'filters' => [
-                    $this->makeFilter(null, 'transactions', 'reference'),
-                    $this->makeFilter(null, 'transactions', 'created_at'),
-                    $this->makeFilter(null, 'merchants', 'name'),
+                    $this->makeFilter('transactions', 'reference'),
+                    $this->makeFilter('transactions', 'created_at'),
+                    $this->makeFilter('merchants', 'name'),
                 ],
             ],
         ];
