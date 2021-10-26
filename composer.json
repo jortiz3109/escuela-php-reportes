@@ -11,7 +11,7 @@
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "myclabs/php-enum": "^1.8"
+        "spatie/laravel-event-sourcing": "^5.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
