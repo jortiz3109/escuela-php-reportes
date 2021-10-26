@@ -4,8 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Country;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
-use Ramsey\Uuid\Uuid;
 
 class CountryFactory extends Factory
 {

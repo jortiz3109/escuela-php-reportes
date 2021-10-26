@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Payer extends Model
 {
     use HasFactory;
+    use HasUuid;
 
     public const UPDATED_AT = null;
 

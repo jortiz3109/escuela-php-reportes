@@ -13,7 +13,6 @@ use App\Models\PaymentMethod;
 use App\Models\Transaction;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-
 class TransactionFactory extends Factory
 {
     /**
