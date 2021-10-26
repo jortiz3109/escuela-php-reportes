@@ -34,42 +34,42 @@ class DatabaseTestSeeder extends Seeder
             'purchase_amount' => 15000,
             'currency_id' => $usd->id,
             'payment_method_id' => $visa->id,
-            'merchant_id' => $merchant1,
+            'merchant_id' => $merchant1->id,
         ]);
         Transaction::factory(10)->create([
             'created_at' => '2021-01-10',
             'purchase_amount' => rand(10000, 20000),
             'currency_id' => $usd->id,
             'payment_method_id' => $masterCard->id,
-            'merchant_id' => $merchant1,
+            'merchant_id' => $merchant1->id,
         ]);
         Transaction::factory(10)->create([
             'created_at' => '2021-01-10',
             'purchase_amount' => 15000,
             'currency_id' => $cop->id,
             'payment_method_id' => $visa->id,
-            'merchant_id' => $merchant2,
+            'merchant_id' => $merchant2->id,
         ]);
         Transaction::factory()->create([
             'created_at' => '2021-01-20',
             'purchase_amount' => 10000,
             'currency_id' => $usd->id,
             'payment_method_id' => $masterCard->id,
-            'merchant_id' => $merchant1,
+            'merchant_id' => $merchant1->id,
         ]);
         Transaction::factory()->create([
             'created_at' => '2021-01-20',
             'purchase_amount' => 20000,
             'currency_id' => $usd->id,
             'payment_method_id' => $masterCard->id,
-            'merchant_id' => $merchant1,
+            'merchant_id' => $merchant1->id,
         ]);
         Transaction::factory(10)->create([
             'created_at' => '2021-01-20',
             'purchase_amount' => rand(10000, 20000),
             'currency_id' => $usd->id,
             'payment_method_id' => $masterCard->id,
-            'merchant_id' => $merchant2,
+            'merchant_id' => $merchant2->id,
         ]);
     }
 }
