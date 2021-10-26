@@ -10,9 +10,8 @@ use App\Models\Merchant;
 use App\Models\Payer;
 use App\Models\PaymentMethod;
 use App\Models\Transaction;
-use MyCLabs\Enum\Enum;
 
-class ExportModels extends Enum
+class ExportModels
 {
     public const EXPORTABLE_MODELS = [
         'merchants' => Merchant::class,
