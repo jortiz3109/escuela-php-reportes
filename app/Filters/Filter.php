@@ -16,9 +16,10 @@ class Filter
         foreach ($this->filters as $filter) {
             $columnName = $filter['table_name'] . '_' . $filter['name'];
             OperatorFactory::make($filter['operator'])->apply($this->query, $columnName, $filter['value']);
+            $this->query->orderBy($columnName, $filter['order']);
         }
 
-        return $this->select()->orderBy();
+        return $this->select();
     }
 
     public function select(): self

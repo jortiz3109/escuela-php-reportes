@@ -6,7 +6,11 @@ use App\Constants\Devices;
 use App\Constants\Transactions;
 use App\Models\QueryReport;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method QueryReport create($attributes = [], ?Model $parent = null)
+ */
 class QueryReportFactory extends Factory
 {
     /**

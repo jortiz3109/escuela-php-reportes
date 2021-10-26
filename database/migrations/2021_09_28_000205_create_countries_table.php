@@ -10,6 +10,7 @@ class CreateCountriesTable extends Migration
     {
         Schema::create('countries', function (Blueprint $table) {
             $table->tinyIncrements('id');
+            $table->binaryUuid('uuid')->unique();
             $table->char('numeric_code', 3)->unique();
             $table->char('alpha_3_code', 3)->unique();
         });
