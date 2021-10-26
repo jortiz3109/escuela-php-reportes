@@ -175,6 +175,19 @@ trait HasOperatorProviders
         ];
     }
 
+    public function fieldsProvider(): array
+    {
+        return [
+            'fields are ordered in same order that is sent' => [
+                'filters' => [
+                    $this->makeFilter('transactions', 'reference'),
+                    $this->makeFilter('transactions', 'created_at'),
+                    $this->makeFilter('merchants', 'name'),
+                ],
+            ],
+        ];
+    }
+
     public function ascendingDataProvider(): array
     {
         return [

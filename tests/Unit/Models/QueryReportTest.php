@@ -154,6 +154,21 @@ class QueryReportTest extends TestCase
 
     /**
      * @test
+     * @dataProvider fieldsProvider
+     */
+    public function dataFieldsIsOrderedCorrectly(array $filters)
+    {
+        $report = QueryReport::filter($filters)->get()->first()->toArray();
+
+        $i = 0;
+        foreach ($report as $key => $value) {
+            $this->assertEquals($filters[$i]['table_name'] . '_' . $filters[$i]['name'], $key);
+            $i++;
+        }
+    }
+
+    /**
+     * @test
      * @dataProvider ascendingDataProvider
      */
     public function aClientCanOrderDataAscending(array $filters): void
