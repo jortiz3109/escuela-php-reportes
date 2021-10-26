@@ -15,6 +15,7 @@ class CurrencyFactory extends Factory
     public function definition(): array
     {
         return [
+            'uuid' => $this->faker->uuid(),
             'alphabetic_code' => $this->faker->unique()->currencyCode(),
             'numeric_code' => $this->faker->unique()->numerify(),
             'minor_unit' => $this->faker->numberBetween(0, 3),

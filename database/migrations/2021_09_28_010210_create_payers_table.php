@@ -10,6 +10,7 @@ class CreatePayersTable extends Migration
     {
         Schema::create('payers', function (Blueprint $table) {
             $table->id();
+            $table->binaryUuid('uuid')->unique();
             $table->string('name', 100);
             $table->string('email', 100)->index();
             $table->timestamp('created_at');
