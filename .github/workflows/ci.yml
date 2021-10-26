@@ -28,8 +28,6 @@ jobs:
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-suggest
       - name: Check code style
         run: composer run-script php-cs-fixer-check
-      - name: Run PSALM checks
-        run: composer run-script psalm
       - name: Generate key
         run: php artisan key:generate
       - name: Directory Permissions
