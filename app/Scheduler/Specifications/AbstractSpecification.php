@@ -15,8 +15,8 @@ abstract class AbstractSpecification implements Specification
     protected $minute;
     protected $hour;
     protected $month;
-    protected $day_month;
-    protected $day_week;
+    protected $dayMonth;
+    protected $dayWeek;
 
     public function __construct(Schedule $schedule)
     {
@@ -24,8 +24,8 @@ abstract class AbstractSpecification implements Specification
         $this->minute = Carbon::now()->format('i');
         $this->hour = CarbonImmutable::now()->isoFormat('H');
         $this->month = CarbonImmutable::now()->isoFormat('M');
-        $this->day_month = CarbonImmutable::now()->isoFormat('D');
-        $this->day_week = CarbonImmutable::now()->weekday();
+        $this->dayMonth = CarbonImmutable::now()->isoFormat('D');
+        $this->dayWeek = CarbonImmutable::now()->weekday();
 
     }
 

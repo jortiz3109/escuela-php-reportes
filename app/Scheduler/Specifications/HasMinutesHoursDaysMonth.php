@@ -12,7 +12,7 @@ class HasMinutesHoursDaysMonth extends AbstractSpecification
 
             if (   $this->schedule->minute == $this->minute
                 && $this->schedule->hour == $this->hour
-                && $this->schedule->day_month == $this->day_month
+                && $this->schedule->day_month == $this->dayMonth
                 && $this->schedule->month == $this->month
             ) {
                 event(new CreateScheduledReport($this->schedule));
