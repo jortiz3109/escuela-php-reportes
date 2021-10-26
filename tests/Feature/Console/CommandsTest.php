@@ -57,7 +57,7 @@ class CommandsTest extends TestCase
      * @param array $cronExpression
      * @param array $setTimeTest
      */
-    public function a_command_will_no_run_reports_that_were_not_scheduled(array $cronExpression, array $setTimeTest)
+    public function a_command_will_no_run_reports_that_were_not_scheduled(array $cronExpression, array $setTimeTest): void
     {
         Event::fake();
         $knownDate = Carbon::create($setTimeTest['year'], $setTimeTest['month'], $setTimeTest['day_month'], $setTimeTest['hour'], $setTimeTest['minute']);
