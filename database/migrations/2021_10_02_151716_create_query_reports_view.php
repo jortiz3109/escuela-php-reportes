@@ -13,7 +13,7 @@ class CreateQueryReportsView extends Migration
      */
     public function up()
     {
-        DB::unprepared(File::get('database/sql/CreateQueryReportsView.sql'));
+        DB::unprepared(File::get(database_path('sql/CreateQueryReportsView.sql')));
     }
 
     /**
@@ -23,6 +23,6 @@ class CreateQueryReportsView extends Migration
      */
     public function down()
     {
-        DB::unprepared(File::get('database/sql/DeleteQueryReportsView.sql'));
+        DB::unprepared(File::get(database_path('sql/DeleteQueryReportsView.sql')));
     }
 }
