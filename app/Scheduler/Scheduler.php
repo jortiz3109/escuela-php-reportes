@@ -7,9 +7,15 @@ use App\Scheduler\Specifications\HasMinutesHours;
 use App\Scheduler\Specifications\HasMinutesHoursDays;
 use App\Scheduler\Specifications\HasMinutesHoursDaysMonth;
 use App\Scheduler\Specifications\HasMinutesHoursDaysMonthWeek;
+use App\Scheduler\Traits\SetCurrentDateTrait;
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
+use Illuminate\Support\Facades\Cache;
 
 class Scheduler
 {
+    use SetCurrentDateTrait;
+
     public const REPORT_CLASS = [
         1 => HasMinutesHours::class,
         2 => HasMinutesHoursDays::class,
@@ -17,14 +23,15 @@ class Scheduler
         4 => HasMinutesHoursDaysMonthWeek::class,
     ];
 
-    public function builtReports()
+    public const CACHE_KEY = 'scheduledHourlyReports';
+
+    public function builtReports(): void
     {
-        $schedules = Schedule::all();
+        $this->setDate($this);
+        Schedule::cacheDailyScheduledReports($this->dayMonth, $this->month, $this->dayWeek, self::CACHE_KEY);
+        $schedules = Cache::get(self::CACHE_KEY);
+
         foreach ($schedules as $schedule) {
-            //TODO validate if this option is a good alternative
-            /*if($schedule->crontype){
-                new self::REPORT_CLASS[$schedule->crontype]($schedule);
-            }*/
             if ($this->validateSpecifications($schedule) === true) {
                 print_r('A report with id ' . $schedule->report_id . ' was created');
             }
