@@ -19,7 +19,7 @@ class ScheduleTest extends TestCase
     public function a_schedule_can_cache_the_current_day_scheduled_reports()
     {
         $this->setDate($this);
-        $schedule = Schedule::cacheHourlySchedule($this->dayMonth, $this->month, $this->dayWeek, 'scheduledHourlyReports');
+        $schedule = Schedule::cacheDailyScheduledReports($this->dayMonth, $this->month, $this->dayWeek, 'scheduledHourlyReports');
 
         //TODO validate the test is not working into the once method call, 'cause test is invalid as it is right now
         Cache::shouldReceive('remember')
