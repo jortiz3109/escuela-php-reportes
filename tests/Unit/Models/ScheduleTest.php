@@ -5,25 +5,38 @@ namespace Tests\Unit\Models;
 use App\Models\Schedule;
 use App\Scheduler\Traits\SetCurrentDateTrait;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Cache;
 use Tests\TestCase;
 
 class ScheduleTest extends TestCase
 {
+    use WithFaker;
     use RefreshDatabase;
     use SetCurrentDateTrait;
 
     /**
      * @test
      */
-    public function a_schedule_can_cache_the_current_day_scheduled_reports()
+    public function a_schedule_can_cache_the_current_day_scheduled_reports(): void
+    {
+        $this->setDate();
+        Schedule::cacheDailyScheduledReports($this->dayMonth, $this->month, $this->dayWeek, 'scheduledHourlyReports');
+
+        $this->assertNotNull(Cache::get('scheduledHourlyReports'));
+
+    }
+
+    /**
+     * @test
+     */
+    public function a_schedule_will_not_cache_other_key(): void
     {
         $this->setDate($this);
-        $schedule = Schedule::cacheDailyScheduledReports($this->dayMonth, $this->month, $this->dayWeek, 'scheduledHourlyReports');
+        Schedule::cacheDailyScheduledReports($this->dayMonth, $this->month, $this->dayWeek, 'scheduledHourlyReports');
 
-        //TODO validate the test is not working into the once method call, 'cause test is invalid as it is right now
-        Cache::shouldReceive('remember')
-            ->with('scheduledHourlyReports', 60, \Closure::class)
-            ->andReturn($schedule);
+        $resultKey = $this->faker->randomElement(['report', 'Schedule', 'schedule', 'scheduledHourlyReport']);
+        $this->assertNull(Cache::get($resultKey));
+
     }
 }

@@ -39,7 +39,7 @@ class CommandsTest extends TestCase
         Event::fake();
         $knownDate = Carbon::create($setTimeTest['year'], $setTimeTest['month'], $setTimeTest['day_month'], $setTimeTest['hour'], $setTimeTest['minute']);
         Carbon::setTestNow($knownDate);
-        $report = Report::create();
+        $report = Report::factory()->create();
         Report::factory()->count(10)->create();
         Schedule::factory()->count(10)->create();
         Schedule::factory()->create(array_merge($cronExpression, ['report_id' => $report->id]));
@@ -62,7 +62,7 @@ class CommandsTest extends TestCase
         Event::fake();
         $knownDate = Carbon::create($setTimeTest['year'], $setTimeTest['month'], $setTimeTest['day_month'], $setTimeTest['hour'], $setTimeTest['minute']);
         Carbon::setTestNow($knownDate);
-        $report = Report::create();
+        $report = Report::factory()->create();
         Report::factory()->count(10)->create();
         Schedule::factory()->count(10)->create();
         Schedule::factory()->create(array_merge($cronExpression, ['report_id' => $report->id]));
