@@ -22,7 +22,7 @@ class Schedule extends Model
 
     public $timestamps = false;
 
-    public static function cacheDailyScheduledReports(string $dayMonth, string $month, string $dayWeek, string $cacheKey)
+    public static function cacheDailyScheduledReports(string $dayMonth, string $month, string $dayWeek, string $cacheKey): void
     {
         if (Cache::has($cacheKey)) {
             Cache::forget($cacheKey);

@@ -37,7 +37,7 @@ class SchedulerTest extends TestCase
     /**
      * @test
      */
-    public function it_should_run_the_specific_scheduled_reports()
+    public function it_should_run_the_specific_scheduled_reports(): void
     {
         $scheduler = new Scheduler();
         $scheduler->builtReports();
