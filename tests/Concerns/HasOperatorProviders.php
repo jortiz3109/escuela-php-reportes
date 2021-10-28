@@ -6,6 +6,8 @@ use App\Constants\Fields;
 
 trait HasOperatorProviders
 {
+    use HasFiltersProvider;
+
     public function operatorEQProvider(): array
     {
         return [
@@ -211,22 +213,6 @@ trait HasOperatorProviders
                     $this->makeFilter('transactions', 'platform_amount', order: 'desc'),
                 ],
             ],
-        ];
-    }
-
-    public function makeFilter(
-        string $tableName,
-        string $name,
-        ?string $operator = null,
-        array|string|null $value = null,
-        ?string $order = 'asc'
-    ): array {
-        return [
-            'table_name' => $tableName,
-            'name' => $name,
-            'operator' => $operator,
-            'value' => $value,
-            'order' => $order,
         ];
     }
 }
