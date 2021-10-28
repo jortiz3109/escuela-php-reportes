@@ -25,7 +25,7 @@ class Scheduler
 
     public function builtReports(): void
     {
-        $this->setDate($this);
+        $this->setDate();
         Schedule::cacheDailyScheduledReports($this->dayMonth, $this->month, $this->dayWeek, self::CACHE_KEY);
         $schedules = Cache::get(self::CACHE_KEY);
 
