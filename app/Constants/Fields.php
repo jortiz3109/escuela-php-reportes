@@ -4,7 +4,7 @@ namespace App\Constants;
 
 class Fields
 {
-    public const ORDER_ASC = 'acs';
+    public const ORDER_ASC = 'asc';
     public const ORDER_DESC = 'desc';
     public const OPERATOR_EQ = '=';
     public const OPERATOR_LEQ = '<=';
