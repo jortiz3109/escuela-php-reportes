@@ -15,7 +15,7 @@ trait SetCurrentDateTrait
     public function setDate(): void
     {
         $date = Carbon::now();
-        $this->minute =$date->format('i');
+        $this->minute = $date->format('i');
         $this->hour = $date->isoFormat('H');
         $this->month = $date->isoFormat('M');
         $this->dayMonth = $date->isoFormat('D');

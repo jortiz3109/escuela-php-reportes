@@ -24,7 +24,6 @@ class ScheduleTest extends TestCase
         Schedule::cacheDailyScheduledReports($this->dayMonth, $this->month, $this->dayWeek, 'scheduledHourlyReports');
 
         $this->assertNotNull(Cache::get('scheduledHourlyReports'));
-
     }
 
     /**
@@ -37,6 +36,5 @@ class ScheduleTest extends TestCase
 
         $resultKey = $this->faker->randomElement(['report', 'Schedule', 'schedule', 'scheduledHourlyReport']);
         $this->assertNull(Cache::get($resultKey));
-
     }
 }
