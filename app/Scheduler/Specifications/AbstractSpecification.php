@@ -20,7 +20,7 @@ abstract class AbstractSpecification implements Specification
 
     public function isSatisfyBy(string $minuteType, string $hourType, string $dayMonthType, string $monthType, string $dayWeekType): bool
     {
-        $this->setDate($this);
+        $this->setDate();
         $validate = Validator::make($this->schedule->getAttributes(), [
             ScheduleConstant::MINUTE => $minuteType,
             ScheduleConstant::HOUR => $hourType,
