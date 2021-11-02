@@ -40,7 +40,7 @@ class CacheDailyReportsTest extends TestCase
             ->with('scheduled-reports')
             ->andReturn($this->schedule);
 
-        $this->assertNotEmpty(Cache::get('scheduled-reports'));
+        $this->assertNotNull(Cache::get('scheduled-reports'));
     }
 
     /**
