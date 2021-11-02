@@ -21,9 +21,9 @@ class ScheduleTest extends TestCase
     public function a_schedule_can_cache_the_current_day_scheduled_reports(): void
     {
         $this->setDate();
-        Schedule::cacheDailyScheduledReports($this->dayMonth, $this->month, $this->dayWeek, 'scheduledHourlyReports');
+        Schedule::cacheDailyScheduledReports($this->dayMonth, $this->month, $this->dayWeek, 'scheduled-reports');
 
-        $this->assertNotNull(Cache::get('scheduledHourlyReports'));
+        $this->assertNotNull(Cache::get('scheduled-reports'));
     }
 
     /**
@@ -31,8 +31,8 @@ class ScheduleTest extends TestCase
      */
     public function a_schedule_will_not_cache_other_key(): void
     {
-        $this->setDate($this);
-        Schedule::cacheDailyScheduledReports($this->dayMonth, $this->month, $this->dayWeek, 'scheduledHourlyReports');
+        $this->setDate();
+        Schedule::cacheDailyScheduledReports($this->dayMonth, $this->month, $this->dayWeek, 'scheduled-reports');
 
         $resultKey = $this->faker->randomElement(['report', 'Schedule', 'schedule', 'scheduledHourlyReport']);
         $this->assertNull(Cache::get($resultKey));
