@@ -24,11 +24,7 @@ class Schedule extends Model
 
     public static function cacheDailyScheduledReports(string $dayMonth, string $month, string $dayWeek, string $cacheKey): void
     {
-        if (Cache::has($cacheKey)) {
-            Cache::forget($cacheKey);
-        }
-
-        Cache::remember($cacheKey, 60, function () use ($dayMonth, $month, $dayWeek) {
+        Cache::remember($cacheKey, 86400, function () use ($dayMonth, $month, $dayWeek) {
             return self::whereIn(ScheduleConstant::DAY_MONTH, [$dayMonth, '*'])
             ->whereIn(ScheduleConstant::MONTH, [$month, '*'])
             ->whereIn(ScheduleConstant::DAY_WEEK, [$dayWeek, '*'])
