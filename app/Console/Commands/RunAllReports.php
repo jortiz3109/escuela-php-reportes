@@ -2,45 +2,29 @@
 
 namespace App\Console\Commands;
 
+use App\Constants\Commands;
 use App\Scheduler\Scheduler;
 use Illuminate\Console\Command;
 
 class RunAllReports extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'reports:run';
+    protected $signature = Commands::RUN_ALL_REPORTS_CALL;
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Generate all the reports ';
+    protected $description = 'Generate all the scheduled reports';
+
     private Scheduler $scheduler;
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
     public function __construct(Scheduler $schedule)
     {
         $this->scheduler = $schedule;
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
-    public function handle()
+    public function handle(): int
     {
         $this->scheduler->builtReports();
         $this->line('All your reports schedule were ran.');
+
+        return Command::SUCCESS;
     }
 }
