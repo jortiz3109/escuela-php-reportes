@@ -1,6 +1,6 @@
 <?php
 
-use App\Constants\ExportModels;
+use App\Constants\ExportTypes;
 use App\Constants\Exports;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -12,7 +12,7 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->enum('model', ExportModels::EXPORTABLE_MODELS)->index();
+            $table->enum('type', ExportTypes::EXPORTABLE_TYPES)->index();
             $table->enum('extension', Exports::TYPES);
             $table->timestamp('created_at');
         });

@@ -5,7 +5,7 @@ namespace App\Constants;
 class Exports
 {
     public const CSV = 'csv';
-    public const XSLX = 'xslx';
+    public const XSLX = 'xlsx';
     public const TSV = 'tsv';
 
     public const SENDER_EMAIL = 'email';

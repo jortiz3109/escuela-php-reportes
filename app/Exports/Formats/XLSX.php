@@ -4,12 +4,13 @@ namespace App\Exports\Formats;
 
 use App\Exports\Contracts\FormatBase;
 use App\Exports\ReportExport;
+use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
 class XLSX extends FormatBase
 {
-    public function export(Builder $builder): void
+    public function export(Report $report): void
     {
-        (new ReportExport($builder))->queue(static::fileName() . '.xlsx');
+        (new ReportExport($report))->queue(static::fileName() . '.xlsx');
     }
 }

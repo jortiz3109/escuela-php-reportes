@@ -2,11 +2,11 @@
 
 namespace App\Exports\Contracts;
 
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\Report;
 
 abstract class FormatBase
 {
-    abstract public function export(Builder $builder): void;
+    abstract public function export(Report $report): void;
 
     public static function fileName(): string
     {

@@ -7,6 +7,7 @@ use App\Exports\Contracts\FormatBase;
 use App\Exports\Formats\CSV;
 use App\Exports\Formats\TSV;
 use App\Exports\Formats\XLSX;
+use App\Models\Report;
 use Illuminate\Database\Eloquent\Builder;
 
 class ExportStrategy
@@ -17,13 +18,13 @@ class ExportStrategy
         'tsv' => TSV::class,
     ];
 
-    public static function applyFormat(string $extension, Builder $builder): void
+    public static function applyFormat(string $extension, Report $report): void
     {
         /** @var FormatBase $extensionStrategy */
         $extensionStrategy = new self::$extensions[$extension]();
 
         $context = new FormatContext($extensionStrategy);
 
-        $context->execute($builder);
+        $context->execute($report);
     }
 }
