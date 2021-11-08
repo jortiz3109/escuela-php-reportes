@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Models\Schedule;
+use App\Models\Report;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -16,15 +16,15 @@ class CreateReportJob implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    private Schedule $schedule;
+    private Report $report;
 
-    public function __construct(Schedule $schedule)
+    public function __construct(Report $report)
     {
-        $this->schedule = $schedule;
+        $this->report = $report;
     }
 
     public function handle(): void
     {
-        //TODO creation of reports
+
     }
 }

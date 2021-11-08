@@ -3,6 +3,7 @@
 namespace App\Scheduler;
 
 use App\Jobs\CreateReportJob;
+use App\Models\Report;
 use App\Scheduler\Specifications\CronReportShouldBeRun;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -15,8 +16,10 @@ class Scheduler
         foreach ($schedules as $schedule) {
             $specification = new CronReportShouldBeRun($schedule);
             if ($specification->shouldExecuteReport()) {
-                CreateReportJob::dispatch($schedule);
-                Log::notice('A a job for report creation were dispatched, the report id was: ' . $schedule->report_id);
+                $report = Report::find($schedule->report_id);
+
+                CreateReportJob::dispatch($report);
+                Log::notice('A a job for report creation were dispatched, the report id was: ' . $report->id);
             }
         }
     }
