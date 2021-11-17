@@ -39,6 +39,7 @@ class CreateReportJobTest extends TestCase
 
         foreach ($this->allFields() as $field) {
             $field['report_id'] = $report->id;
+            $field['order'] = null;
             Field::factory()->create($field);
         }
 

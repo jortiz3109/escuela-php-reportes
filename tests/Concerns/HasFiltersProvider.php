@@ -9,7 +9,7 @@ trait HasFiltersProvider
         string $name,
         ?string $operator = null,
         array|string|null $value = null,
-        ?string $order = null
+        ?string $order = 'asc'
     ): array {
         return [
             'table_name' => $tableName,
