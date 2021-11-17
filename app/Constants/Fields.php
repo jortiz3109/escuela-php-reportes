@@ -78,23 +78,6 @@ class Fields
         'devices' => self::DEVICE_FIELDS,
     ];
 
-    public static function all(): array
-    {
-        return array_unique(
-            array_merge(
-                self::TRANSACTION_FIELDS,
-                self::MERCHANT_FIELDS,
-                self::DEVICE_FIELDS,
-                self::COUNTRY_FIELDS,
-                self::CURRENCY_FIELDS,
-                self::PAYER_FIELDS,
-                self::BUYER_FIELDS,
-                self::PAYMENT_METHOD_FIELDS,
-            ),
-            SORT_REGULAR
-        );
-    }
-
     public static function getFieldsByTable(string $tableName): array
     {
         return self::FIELDS_BY_TABLE[$tableName];

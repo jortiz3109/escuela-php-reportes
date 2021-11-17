@@ -10,6 +10,6 @@ class XLSX extends FormatBase
 {
     public function export(Report $report): void
     {
-        (new ReportExport($report))->queue(static::fileName() . '.xlsx');
+        (new ReportExport($report))->store(static::fileName() . '.xlsx');
     }
 }

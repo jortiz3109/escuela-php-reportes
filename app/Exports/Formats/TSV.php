@@ -10,6 +10,6 @@ class TSV extends FormatBase
 {
     public function export(Report $report): void
     {
-        (new ReportExport($report))->queue(static::fileName() . '.tsv');
+        (new ReportExport($report))->store(static::fileName() . '.tsv');
     }
 }
