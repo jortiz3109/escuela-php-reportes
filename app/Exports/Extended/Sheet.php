@@ -11,7 +11,6 @@ class Sheet extends \Maatwebsite\Excel\Sheet
     public function fromQuery(FromQuery $sheetExport, Worksheet $worksheet)
     {
         $sheetExport->query()->chunk($sheetExport->chunkSize(), function (Collection $chunk) use ($sheetExport) {
-            // TODO: format values
             $this->appendRows($chunk, $sheetExport);
         });
     }
