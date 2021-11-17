@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Constants\ExportTypes;
 use App\Constants\Exports;
+use App\Constants\ExportTypes;
 use App\Models\Report;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

@@ -2,9 +2,9 @@
 
 namespace Exports;
 
-use App\Exports\Contracts\FormatBase;
-use App\Exports\ExportStrategy;
-use App\Exports\ReportExport;
+use App\Exports\Extended\ExportDecorator\Contracts\FormatBase;
+use App\Exports\Extended\ExportDecorator\ExportStrategy;
+use App\Exports\Extended\ExportDecorator\ReportExport;
 use App\Models\QueryReport;
 use Carbon\Carbon;
 use Database\Seeders\DatabaseTestSeeder;

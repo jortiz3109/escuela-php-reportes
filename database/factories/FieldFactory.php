@@ -22,7 +22,6 @@ class FieldFactory extends Factory
         return [
             'name' => $name,
             'table_name' => $tableName,
-            'order' => $this->faker->randomElement([Fields::ORDER_ASC, Fields::ORDER_DESC]),
             'operator' => $this->faker->randomElement(Fields::OPERATORS),
             'value' => $this->faker->dateTime(),
             'report_id' => Report::factory(),

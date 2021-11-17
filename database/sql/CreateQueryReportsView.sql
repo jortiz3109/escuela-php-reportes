@@ -2,6 +2,7 @@ DROP VIEW IF EXISTS query_reports_view;
 
 CREATE VIEW query_reports_view AS
 SELECT
+    transactions.id AS id,
     transactions.reference AS transactions_reference,
     transactions.purchase_amount AS transactions_purchase_amount,
     transactions.platform_amount AS transactions_platform_amount,

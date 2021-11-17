@@ -8,7 +8,6 @@ use App\Exports\Formats\CSV;
 use App\Exports\Formats\TSV;
 use App\Exports\Formats\XLSX;
 use App\Models\Report;
-use Illuminate\Database\Eloquent\Builder;
 
 class ExportStrategy
 {

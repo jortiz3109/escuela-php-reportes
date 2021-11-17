@@ -4,7 +4,6 @@ namespace App\Exports\Contexts;
 
 use App\Exports\Contracts\FormatBase;
 use App\Models\Report;
-use Illuminate\Database\Eloquent\Builder;
 
 class FormatContext
 {

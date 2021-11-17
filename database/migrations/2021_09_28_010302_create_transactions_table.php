@@ -13,8 +13,8 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->binaryUuid('uuid')->unique();
             $table->string('reference', 50)->unique();
-            $table->unsignedBigInteger('purchase_amount');
-            $table->unsignedBigInteger('platform_amount');
+            $table->unsignedBigInteger('purchase_amount')->index();
+            $table->unsignedBigInteger('platform_amount')->index();
             $table->string('truncated_pan', 20)->index();
             $table->enum('status', Transactions::STATUSES)->index();
             $table->ipAddress('ip');
