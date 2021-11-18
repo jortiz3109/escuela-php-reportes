@@ -2,9 +2,9 @@
 
 namespace App\Domain\ExchangeRate\Helpers;
 
+use App\Domain\ExchangeRate\Exceptions\CurrencyNotFoundException;
 use App\Models\Currency;
 use App\Models\ExchangeRate;
-use App\Domain\ExchangeRate\Exceptions\CurrencyNotFoundException;
 
 class ExchangeRateHelper
 {
