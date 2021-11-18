@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Concerns\HasUuid;
+use App\Domain\ExchangeRate\Exceptions\CurrencyNotFoundException;
+use App\Domain\ExchangeRate\Helpers\ExchangeRateHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -40,7 +42,7 @@ class Transaction extends Model
             'uuid' => $attributes['uuid'],
             'reference' => $attributes['reference'],
             'purchase_amount' => $attributes['purchase_amount'],
-            'platform_amount' => $attributes['platform_amount'],
+            'platform_amount' => static::setPlatformAmountFromMessage($attributes),
             'truncated_pan' => $attributes['truncated_pan'],
             'status' => $attributes['status'],
             'ip' => $attributes['ip'],
@@ -53,5 +55,16 @@ class Transaction extends Model
             'country_id' => $attributes['country_id'],
             'created_at' => $attributes['created_at'],
         ]);
+    }
+
+    /**
+     * @throws CurrencyNotFoundException
+     */
+    private static function setPlatformAmountFromMessage(array $attributes): string
+    {
+        return ExchangeRateHelper::convertToPlatformCurrency(
+            $attributes['purchase_currency'],
+            $attributes['purchase_amount'],
+        );
     }
 }

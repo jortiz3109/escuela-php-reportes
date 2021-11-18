@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @method static pluck(string $string)
  * @method static create(array $attributes)
+ * @property string $alphabetic_code
+ * @property string $minor_unit
  */
 class Currency extends Model
 {
