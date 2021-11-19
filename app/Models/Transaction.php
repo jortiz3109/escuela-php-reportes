@@ -36,13 +36,16 @@ class Transaction extends Model
         'created_at',
     ];
 
+    /**
+     * @throws CurrencyNotFoundException
+     */
     public static function createWithAttributes(array $attributes): self
     {
         return static::create([
             'uuid' => $attributes['uuid'],
             'reference' => $attributes['reference'],
             'purchase_amount' => $attributes['purchase_amount'],
-            'platform_amount' => static::setPlatformAmountFromMessage($attributes),
+            'platform_amount' => $attributes['platform_amount'] ?? static::setPlatformAmountFromMessage($attributes),
             'truncated_pan' => $attributes['truncated_pan'],
             'status' => $attributes['status'],
             'ip' => $attributes['ip'],
@@ -62,9 +65,9 @@ class Transaction extends Model
      */
     private static function setPlatformAmountFromMessage(array $attributes): string
     {
-        return ExchangeRateHelper::convertToPlatformCurrency(
-            $attributes['purchase_currency'],
-            $attributes['purchase_amount'],
-        );
+        /** @var Currency $currency */
+        $currency = Currency::query()->find($attributes['currency_id']);
+
+        return ExchangeRateHelper::convertToPlatformCurrency($currency, $attributes['purchase_amount']);
     }
 }

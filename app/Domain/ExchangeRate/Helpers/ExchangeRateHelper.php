@@ -30,11 +30,9 @@ class ExchangeRateHelper
     /**
      * @throws CurrencyNotFoundException
      */
-    public static function convertToPlatformCurrency(string $currency, string $amount): string
+    public static function convertToPlatformCurrency(?Currency $currency, string $amount): string
     {
-        /** @var Currency $currency */
         /** @var Currency $currencyUSD */
-        $currency = Currency::query()->firstWhere('numeric_code', $currency);
         $currencyUSD = Currency::query()->firstWhere('alphabetic_code', 'USD');
 
         if (!$currency) {
