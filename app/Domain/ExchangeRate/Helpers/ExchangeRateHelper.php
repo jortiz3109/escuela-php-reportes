@@ -28,8 +28,11 @@ class ExchangeRateHelper
         return $exchangeRates;
     }
 
-    public static function convertToPlatformCurrency(Currency $currency, string $amount): string
+    public static function convertToPlatformCurrency(array $attributes): string
     {
+        /** @var Currency $currency */
+        $currency = Currency::query()->findOrFail($attributes['currency_id']);
+
         $currencyUSD = Currency::query()->whereAlphabeticCode('USD')->first();
 
         $exchange = ExchangeRate::query()->whereCurrency($currency->alphabetic_code)
@@ -37,12 +40,12 @@ class ExchangeRateHelper
             ->first(['id', 'rate']);
 
         return (string)($exchange ?
-            round((float)$amount / $exchange->rate, 2) * pow(10, $currencyUSD->minor_unit) :
-            $amount);
+            self::convert($attributes['purchase_amount'], $exchange, $currencyUSD) :
+            $attributes['purchase_amount']);
     }
 
-    public static function convert(int $amount, int $currencyMinorUnit, float $rate): float
+    protected static function convert(string $purchase_amount, ExchangeRate $exchange, ?Currency $currencyUSD): float
     {
-        return $amount / pow(10, $currencyMinorUnit) * $rate;
+        return round((float)$purchase_amount / $exchange->rate, 2) * pow(10, $currencyUSD->minor_unit);
     }
 }

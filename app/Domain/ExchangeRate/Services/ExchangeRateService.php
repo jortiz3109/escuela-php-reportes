@@ -29,11 +29,13 @@ class ExchangeRateService
         );
     }
 
-    public function sync(string $date = null): void
+    public function sync(string $date = null): array
     {
         $date ??= Carbon::now()->timezone($this->timezone)->format('Y-m-d');
 
         $exchanges = $this->get($date);
+
+        $created = $updated = 0;
 
         foreach ($exchanges as $exchange) {
             ExchangeRate::query()->updateOrCreate(
@@ -46,6 +48,18 @@ class ExchangeRateService
                     'rate' => $exchange->rate,
                 ]
             );
+
+            if ($exchange->wasRecentlyCreated) {
+                $created += 1;
+            } else {
+                $updated += 1;
+            }
         }
+
+        return [
+            'created' => $created,
+            'updated' => $updated,
+            'date' => $date,
+        ];
     }
 }
