@@ -25,6 +25,8 @@ class ExchangeRate extends Model
         'date',
     ];
 
+    protected $dateFormat = 'Y-m-d';
+
     public function newEloquentBuilder($query): ExchangeRateQueryBuilder
     {
         return new ExchangeRateQueryBuilder($query);
