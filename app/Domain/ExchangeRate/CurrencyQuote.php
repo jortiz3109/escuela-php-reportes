@@ -16,5 +16,4 @@ class CurrencyQuote
     {
         return $this->factor;
     }
-
 }

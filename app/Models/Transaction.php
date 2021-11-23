@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Concerns\HasUuid;
-use App\Domain\ExchangeRate\Exceptions\CurrencyNotFoundException;
 use App\Domain\ExchangeRate\Helpers\ExchangeRateHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -36,9 +35,6 @@ class Transaction extends Model
         'created_at',
     ];
 
-    /**
-     * @throws CurrencyNotFoundException
-     */
     public static function createWithAttributes(array $attributes): self
     {
         return static::create([
