@@ -6,7 +6,6 @@ use App\Domain\ExchangeRate\Services\ExchangeRateService;
 use App\Models\ExchangeRate;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class GetExchangeRateTest extends TestCase
