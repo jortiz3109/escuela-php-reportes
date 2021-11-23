@@ -60,13 +60,10 @@ class Transaction extends Model
         ]);
     }
 
-    /**
-     * @throws CurrencyNotFoundException
-     */
     private static function setPlatformAmountFromMessage(array $attributes): string
     {
         /** @var Currency $currency */
-        $currency = Currency::query()->find($attributes['currency_id']);
+        $currency = Currency::query()->findOrFail($attributes['currency_id']);
 
         return ExchangeRateHelper::convertToPlatformCurrency($currency, $attributes['purchase_amount']);
     }

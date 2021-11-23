@@ -2,44 +2,37 @@
 
 namespace App\Domain\ExchangeRate\Helpers;
 
-use App\Domain\ExchangeRate\Exceptions\CurrencyNotFoundException;
+use App\Domain\ExchangeRate\CurrencyQuote;
 use App\Models\Currency;
 use App\Models\ExchangeRate;
 
 class ExchangeRateHelper
 {
-    public static function toExchangeRate(array $response, string $date): array
+    /**
+     * @param CurrencyQuote[] $currencyQuotes
+     * @return ExchangeRate[]
+     */
+    public static function getExchangeRates(array $currencyQuotes, string $date): array
     {
-        $exchanges = [];
+        $exchangeRates = [];
 
-        foreach ($response as $value) {
-            array_push(
-                $exchanges,
-                new ExchangeRate([
-                    'base' => 'USD',
-                    'currency' => $value->currency(),
-                    'rate' => $value->factor(),
-                    'date' => $date,
-                ])
-            );
+        foreach ($currencyQuotes as $currencyQuote) {
+            $exchangeRates[] = new ExchangeRate([
+                'base' => 'USD',
+                'currency' => $currencyQuote->currency(),
+                'rate' => $currencyQuote->factor(),
+                'date' => $date,
+            ]);
         }
 
-        return $exchanges;
+        return $exchangeRates;
     }
 
-    /**
-     * @throws CurrencyNotFoundException
-     */
-    public static function convertToPlatformCurrency(?Currency $currency, string $amount): string
+    public static function convertToPlatformCurrency(Currency $currency, string $amount): string
     {
-        /** @var Currency $currencyUSD */
-        $currencyUSD = Currency::query()->firstWhere('alphabetic_code', 'USD');
+        $currencyUSD = Currency::query()->whereAlphabeticCode('USD')->first();
 
-        if (!$currency) {
-            throw new CurrencyNotFoundException('Currency ' . $currency . ' not found');
-        }
-
-        $exchange = ExchangeRate::query()->where('currency', $currency->alphabetic_code)
+        $exchange = ExchangeRate::query()->whereCurrency($currency->alphabetic_code)
             ->orderBy('date', 'desc')
             ->first(['id', 'rate']);
 
