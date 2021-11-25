@@ -174,6 +174,7 @@ return [
         App\Providers\EventServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         App\Providers\UuidServiceProvider::class,
+        App\Providers\ExchangeRateServiceProvider::class,
 
     ],
 

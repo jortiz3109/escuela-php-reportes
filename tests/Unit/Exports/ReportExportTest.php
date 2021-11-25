@@ -1,6 +1,6 @@
 <?php
 
-namespace Exports;
+namespace Tests\Unit\Exports;
 
 use App\Exports\Contracts\FormatBase;
 use App\Exports\ExportStrategy;

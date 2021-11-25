@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Concerns\HasUuid;
+use App\Domain\ExchangeRate\Helpers\ExchangeRateHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -40,7 +41,8 @@ class Transaction extends Model
             'uuid' => $attributes['uuid'],
             'reference' => $attributes['reference'],
             'purchase_amount' => $attributes['purchase_amount'],
-            'platform_amount' => $attributes['platform_amount'],
+            'platform_amount' => $attributes['platform_amount']
+                ?? ExchangeRateHelper::convertToPlatformCurrency($attributes),
             'truncated_pan' => $attributes['truncated_pan'],
             'status' => $attributes['status'],
             'ip' => $attributes['ip'],
