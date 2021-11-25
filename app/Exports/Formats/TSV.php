@@ -4,12 +4,12 @@ namespace App\Exports\Formats;
 
 use App\Exports\Contracts\FormatBase;
 use App\Exports\ReportExport;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\Report;
 
 class TSV extends FormatBase
 {
-    public function export(Builder $builder): void
+    public function export(Report $report): void
     {
-        (new ReportExport($builder))->queue(static::fileName() . '.tsv');
+        (new ReportExport($report))->store(static::fileName() . '.tsv');
     }
 }
