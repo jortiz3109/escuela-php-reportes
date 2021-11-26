@@ -20,5 +20,5 @@ interface Format
 
     public function closeFile(): void;
 
-    public function chunkSize() : int;
+    public function chunkSize(): int;
 }
