@@ -2,25 +2,22 @@
 
 namespace App\Console;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
-    /**
-     * The Artisan commands provided by your application.
-     *
-     * @var array
-     */
-    protected $commands = [
-        //
-    ];
+    protected function schedule(Schedule $schedule): void
+    {
+        $schedule->command('reports:run')
+           ->everyMinute()
+           ->withoutOverlapping();
 
-    /**
-     * Register the commands for the application.
-     *
-     * @return void
-     */
-    protected function commands()
+        $schedule->command('cache-reports:run')
+            ->cron('0 0 * * *');
+    }
+
+    protected function commands(): void
     {
         $this->load(__DIR__ . '/Commands');
 
