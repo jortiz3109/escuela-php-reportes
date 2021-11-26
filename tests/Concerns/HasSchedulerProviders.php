@@ -7,7 +7,6 @@ use App\Scheduler\Specifications\CronReportShouldBeRun;
 
 trait HasSchedulerProviders
 {
-
     public function setDataCronJob(string $minute, string $hour, string $dayMonth, string $month, string $dayWeek): array
     {
         return [
@@ -28,7 +27,6 @@ trait HasSchedulerProviders
             ScheduleConstants::HOUR => $hour,
             ScheduleConstants::MINUTE => $minute,
         ];
-
     }
 
     public function scheduledCronExpression(): array
@@ -40,17 +38,17 @@ trait HasSchedulerProviders
             ],
             'at specific day with hour and minute a report will be execute' => [
                 $this->setDataCronJob(20, 20, 9, '*', '*'),
-                $this->setDataSetTime(2021, 10, 9, 20, 20)
+                $this->setDataSetTime(2021, 10, 9, 20, 20),
             ],
 
             'at specific month with day, hour and minute a report will be execute' => [
                 $this->setDataCronJob(20, 8, 9, 10, '*'),
-                $this->setDataSetTime(2021, 10, 9, 8, 20)
+                $this->setDataSetTime(2021, 10, 9, 8, 20),
             ],
 
             'at specific week day with month, day, hour and minute a report will be execute' => [
                 $this->setDataCronJob(20, 8, 22, 10, 5),
-                $this->setDataSetTime(2021, 10, 22, 8, 20)
+                $this->setDataSetTime(2021, 10, 22, 8, 20),
             ],
         ];
     }
@@ -60,22 +58,22 @@ trait HasSchedulerProviders
         return [
             'all days at specific minute and hour a report will not be execute' => [
                 $this->setDataCronJob(20, 7, '*', '*', '*'),
-                $this->setDataSetTime(2021, 10, 22, 8, 20)
+                $this->setDataSetTime(2021, 10, 22, 8, 20),
             ],
 
             'at specific day with hour and minute a report will not be execute' => [
                 $this->setDataCronJob(20, 20, 8, '*', '*'),
-                $this->setDataSetTime(2021, 10, 9, 8, 20)
+                $this->setDataSetTime(2021, 10, 9, 8, 20),
             ],
 
             'at specific month with day, hour and minute a report will not be execute' => [
                 $this->setDataCronJob(20, 8, 9, 11, '*'),
-                $this->setDataSetTime(2021, 10, 9, 8, 20)
+                $this->setDataSetTime(2021, 10, 9, 8, 20),
             ],
 
             'at specific week day with month, day, hour and minute a report will not be execute' => [
                 $this->setDataCronJob(20, 8, 22, 10, 5),
-                $this->setDataSetTime(2021, 10, 22, 8, 20)
+                $this->setDataSetTime(2021, 10, 22, 8, 20),
             ],
 
         ];
