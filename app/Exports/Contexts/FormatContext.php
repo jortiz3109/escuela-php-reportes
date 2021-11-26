@@ -2,12 +2,12 @@
 
 namespace App\Exports\Contexts;
 
-use App\Exports\Contracts\Format;
+use App\Exports\Contracts\Export;
 use App\Models\Report;
 
 class FormatContext
 {
-    public function __construct(private Format $strategy)
+    public function __construct(private Export $strategy)
     {
     }
 

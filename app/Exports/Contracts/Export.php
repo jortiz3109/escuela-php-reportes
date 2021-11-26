@@ -4,7 +4,7 @@ namespace App\Exports\Contracts;
 
 use App\Models\Report;
 
-interface Format
+interface Export
 {
     public function fileName(): string;
 

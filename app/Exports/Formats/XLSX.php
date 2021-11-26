@@ -2,7 +2,7 @@
 
 namespace App\Exports\Formats;
 
-use App\Exports\Contracts\Format;
+use App\Exports\Contracts\Export;
 use App\Helpers\FieldsHelper;
 use App\Models\QueryReport;
 use App\Models\Report;
@@ -15,7 +15,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as Excel;
 
-class XLSX implements Format
+class XLSX implements Export
 {
     private const EXT = '.xlsx';
 

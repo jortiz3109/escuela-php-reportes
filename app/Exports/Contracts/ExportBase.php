@@ -7,7 +7,7 @@ use App\Models\QueryReport;
 use App\Models\Report;
 use Illuminate\Support\Collection;
 
-abstract class FormatBase implements Format
+abstract class ExportBase implements Export
 {
     /**
      * @var bool|resource

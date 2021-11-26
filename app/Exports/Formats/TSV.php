@@ -2,9 +2,9 @@
 
 namespace App\Exports\Formats;
 
-use App\Exports\Contracts\FormatBase;
+use App\Exports\Contracts\ExportBase;
 
-class TSV extends FormatBase
+class TSV extends ExportBase
 {
     public const EXT = '.tsv';
 

@@ -2,9 +2,9 @@
 
 namespace App\Exports\Formats;
 
-use App\Exports\Contracts\FormatBase;
+use App\Exports\Contracts\ExportBase;
 
-class CSV extends FormatBase
+class CSV extends ExportBase
 {
     public const EXT = '.csv';
 
