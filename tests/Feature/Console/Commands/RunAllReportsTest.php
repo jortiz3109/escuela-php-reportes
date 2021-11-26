@@ -42,7 +42,6 @@ class RunAllReportsTest extends TestCase
     public function a_command_runs_a_report_schedule_at_specific_time(array $cronExpression, array $setTimeTest): void
     {
         Bus::fake();
-        $this->withoutExceptionHandling();
         $report = $this->createReportsAndSchedule($cronExpression);
         $this->getCacheReports($setTimeTest);
 

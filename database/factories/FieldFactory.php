@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Constants\ExportModels;
+use App\Constants\ExportTypes;
 use App\Constants\Fields;
 use App\Models\Field;
 use App\Models\Report;
@@ -17,12 +17,11 @@ class FieldFactory extends Factory
 
     public function definition(): array
     {
-        $tableName = $this->faker->randomElement(array_keys(ExportModels::EXPORTABLE_MODELS));
+        $tableName = $this->faker->randomElement(ExportTypes::EXPORTABLE_TABLES);
         $name = $this->faker->randomElement(Fields::getFieldsByTable($tableName));
         return [
             'name' => $name,
             'table_name' => $tableName,
-            'order' => $this->faker->randomElement([Fields::ORDER_ASC, Fields::ORDER_DESC]),
             'operator' => $this->faker->randomElement(Fields::OPERATORS),
             'value' => $this->faker->dateTime(),
             'report_id' => Report::factory(),

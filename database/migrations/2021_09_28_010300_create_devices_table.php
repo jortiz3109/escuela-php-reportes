@@ -13,8 +13,8 @@ class CreateDevicesTable extends Migration
             $table->id();
             $table->binaryUuid('uuid')->unique();
             $table->string('browser', 50)->index();
-            $table->string('os', 100);
-            $table->enum('device_type', Devices::TYPES);
+            $table->string('os', 100)->index();
+            $table->enum('device_type', Devices::TYPES)->index();
             $table->timestamp('created_at');
         });
     }

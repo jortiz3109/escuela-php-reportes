@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Exports\ExportStrategy;
 use App\Models\Report;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -16,15 +17,12 @@ class CreateReportJob implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    private Report $report;
-
-    public function __construct(Report $report)
+    public function __construct(public Report $report)
     {
-        $this->report = $report;
     }
 
     public function handle(): void
     {
-
+        ExportStrategy::applyFormat($this->report->extension, $this->report);
     }
 }
