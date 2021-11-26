@@ -2,16 +2,13 @@
 
 namespace App\Exports\Contexts;
 
-use App\Exports\Contracts\FormatBase;
+use App\Exports\Contracts\Format;
 use App\Models\Report;
 
 class FormatContext
 {
-    private FormatBase $strategy;
-
-    public function __construct(FormatBase $strategy)
+    public function __construct(private Format $strategy)
     {
-        $this->strategy = $strategy;
     }
 
     public function execute(Report $report): void

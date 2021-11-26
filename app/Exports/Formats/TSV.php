@@ -3,13 +3,13 @@
 namespace App\Exports\Formats;
 
 use App\Exports\Contracts\FormatBase;
-use App\Exports\ReportExport;
-use App\Models\Report;
 
 class TSV extends FormatBase
 {
-    public function export(Report $report): void
+    public const EXT = '.tsv';
+
+    protected function getDelimiter(): string
     {
-        (new ReportExport($report))->store(static::fileName() . '.tsv');
+        return chr(9);
     }
 }

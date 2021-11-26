@@ -2,9 +2,7 @@
 
 namespace Exports;
 
-use App\Exports\Contracts\FormatBase;
 use App\Exports\ExportStrategy;
-use App\Exports\ReportExport;
 use App\Models\Field;
 use App\Models\Report;
 use Carbon\Carbon;
@@ -12,11 +10,11 @@ use Database\Seeders\DatabaseTestSeeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 use Tests\Concerns\HasExportProviders;
 use Tests\TestCase;
 
-class ReportExportTest extends TestCase
+class FormatExportTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
@@ -38,8 +36,6 @@ class ReportExportTest extends TestCase
      */
     public function anUserCanExportDataFromBuilderToXLSX(string $extension, array $filters)
     {
-        Excel::fake();
-
         foreach ($filters as $field) {
             $field['report_id'] = $this->report->id;
             Field::factory()->create($field);
@@ -47,7 +43,9 @@ class ReportExportTest extends TestCase
 
         ExportStrategy::applyFormat($extension, $this->report);
 
-        Excel::assertQueued(FormatBase::fileName() . '.xlsx', fn (ReportExport $export) => true);
+        $filename = 'reports/report_' . now()->timestamp . '.' . $extension;
+        $this->assertTrue(Storage::exists($filename));
+        Storage::delete($filename);
     }
 
     /**
@@ -56,8 +54,6 @@ class ReportExportTest extends TestCase
      */
     public function anUserCanExportDataFromBuilderToCSV(string $extension, array $filters)
     {
-        Excel::fake();
-
         foreach ($filters as $field) {
             $field['report_id'] = $this->report->id;
             Field::factory()->create($field);
@@ -65,7 +61,9 @@ class ReportExportTest extends TestCase
 
         ExportStrategy::applyFormat($extension, $this->report);
 
-        Excel::assertQueued(FormatBase::fileName() . '.csv', fn (ReportExport $export) => true);
+        $filename = 'reports/report_' . now()->timestamp . '.' . $extension;
+        $this->assertTrue(Storage::exists($filename));
+        Storage::delete($filename);
     }
 
     /**
@@ -74,8 +72,6 @@ class ReportExportTest extends TestCase
      */
     public function anUserCanExportDataFromBuilderToTSV(string $extension, array $filters)
     {
-        Excel::fake();
-
         foreach ($filters as $field) {
             $field['report_id'] = $this->report->id;
             Field::factory()->create($field);
@@ -83,6 +79,8 @@ class ReportExportTest extends TestCase
 
         ExportStrategy::applyFormat($extension, $this->report);
 
-        Excel::assertQueued(FormatBase::fileName() . '.tsv', fn (ReportExport $export) => true);
+        $filename = 'reports/report_' . now()->timestamp . '.' . $extension;
+        $this->assertTrue(Storage::exists($filename));
+        Storage::delete($filename);
     }
 }

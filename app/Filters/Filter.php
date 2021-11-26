@@ -3,6 +3,7 @@
 namespace App\Filters;
 
 use App\Filters\Operators\OperatorFactory;
+use App\Helpers\FieldsHelper;
 use Illuminate\Database\Eloquent\Builder;
 
 class Filter
@@ -14,7 +15,7 @@ class Filter
     public function buildQuery(): self
     {
         foreach ($this->filters as $filter) {
-            $columnName = $filter['table_name'] . '_' . $filter['name'];
+            $columnName = FieldsHelper::getFieldName($filter);
             OperatorFactory::make($filter['operator'])->apply($this->query, $columnName, $filter['value']);
             $this->orderBy($columnName, $filter['order']);
         }
@@ -24,7 +25,7 @@ class Filter
 
     public function select(): self
     {
-        $selected = array_map(fn ($field) => $field['table_name'] . '_' . $field['name'], $this->filters);
+        $selected = array_map(fn ($field) => FieldsHelper::getFieldName($field), $this->filters);
         $this->query->select($selected);
 
         return $this;

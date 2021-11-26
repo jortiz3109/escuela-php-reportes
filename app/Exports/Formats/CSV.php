@@ -3,13 +3,13 @@
 namespace App\Exports\Formats;
 
 use App\Exports\Contracts\FormatBase;
-use App\Exports\ReportExport;
-use App\Models\Report;
 
 class CSV extends FormatBase
 {
-    public function export(Report $report): void
+    public const EXT = '.csv';
+
+    protected function getDelimiter(): string
     {
-        (new ReportExport($report))->store(static::fileName() . '.csv');
+        return ',';
     }
 }

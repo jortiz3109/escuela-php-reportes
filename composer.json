@@ -8,10 +8,11 @@
         "php": "^8.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "infostreams/excel-merge": "^0.8.5",
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "maatwebsite/excel": "^3.1",
+        "phpoffice/phpspreadsheet": "^1.19",
         "spatie/laravel-event-sourcing": "^5.0"
     },
     "require-dev": {
