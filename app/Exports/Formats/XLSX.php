@@ -19,8 +19,6 @@ class XLSX implements Format
 {
     private const EXT = '.xlsx';
 
-    private const CHUNK_SIZE = 10000;
-
     private Spreadsheet $doc;
 
     private int $row = 0;
@@ -37,7 +35,7 @@ class XLSX implements Format
         $this->setCache();
         $fields = $report->fields->toArray();
         QueryReport::filter($report->fields->toArray())->chunk(
-            self::CHUNK_SIZE,
+            $this->chunkSize(),
             function (Collection $collection) use ($fields) {
                 $this->worksheetIndex++;
                 $this->loadFile();
@@ -89,7 +87,7 @@ class XLSX implements Format
 
     public function setHeaders(array $columns): void
     {
-        $this->sheet->setTitle($this->row . '-' . $this->row + self::CHUNK_SIZE);
+        $this->sheet->setTitle($this->row . '-' . $this->row + $this->chunkSize());
         $columns = array_map(fn ($column) => trans('columns.' . $column), $columns);
         $this->sheet->fromArray($columns);
     }
@@ -124,7 +122,12 @@ class XLSX implements Format
 
     private function getCurrentRow(): int
     {
-        $row = $this->row > self::CHUNK_SIZE ? $this->worksheetIndex * self::CHUNK_SIZE - $this->row : $this->row;
-        return $row < 2 ? 2 : $row;
+        $currentRow = $this->row > $this->chunkSize() ? $this->worksheetIndex * $this->chunkSize() - $this->row : $this->row;
+        return $currentRow < 2 ? 2 : $currentRow;
+    }
+
+    public function chunkSize(): int
+    {
+        return config('exports.chunk');
     }
 }

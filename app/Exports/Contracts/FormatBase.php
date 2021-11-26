@@ -12,14 +12,14 @@ abstract class FormatBase implements Format
     /**
      * @var bool|resource
      */
-    protected $sp;
+    protected $fileStream;
 
     public function export(Report $report): void
     {
         $this->loadFile();
         $fields = $report->fields->toArray();
         $this->setHeaders(FieldsHelper::getFieldsNames($fields));
-        QueryReport::filter($fields)->chunk(10000, function (Collection $collection) {
+        QueryReport::filter($fields)->chunk($this->chunkSize(), function (Collection $collection) {
             foreach ($collection->toBase()->toArray() as $row) {
                 $this->write($row);
             }
@@ -34,7 +34,7 @@ abstract class FormatBase implements Format
 
     public function write(array $data): void
     {
-        fputcsv($this->sp, $this->formatter($data), $this->getDelimiter());
+        fputcsv($this->fileStream, $this->formatter($data), $this->getDelimiter());
     }
 
     public function setHeaders(array $columns): void
@@ -50,12 +50,17 @@ abstract class FormatBase implements Format
 
     public function loadFile(): void
     {
-        $this->sp = fopen($this->fileName(), 'a');
+        $this->fileStream = fopen($this->fileName(), 'a');
     }
 
     public function closeFile(): void
     {
-        fclose($this->sp);
+        fclose($this->fileStream);
+    }
+
+    public function chunkSize(): int
+    {
+        return config('exports.chunk');
     }
 
     abstract protected function getDelimiter(): string;

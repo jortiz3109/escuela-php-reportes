@@ -19,4 +19,6 @@ interface Format
     public function loadFile(): void;
 
     public function closeFile(): void;
+
+    public function chunkSize() : int;
 }
