@@ -45,8 +45,8 @@ class FormatExportTest extends TestCase
         }
 
         ExportStrategy::applyFormat($extension, $this->report);
-
-        $filename = self::BASE_NAME . now()->timestamp . '.' . $extension;
+        $ext = $extension === Exports::CSV_SEMICOLON ? Exports::CSV : $extension;
+        $filename = self::BASE_NAME . now()->timestamp . '.' . $ext;
         $this->assertTrue(Storage::exists($filename));
         Storage::delete($filename);
     }
@@ -57,6 +57,7 @@ class FormatExportTest extends TestCase
             'extension csv' => [Exports::CSV, $this->allFields()],
             'extension tsv' => [Exports::TSV, $this->allFields()],
             'extension xlsx' => [Exports::XSLX, $this->allFields()],
+            'extension csv with semicolon separator' => [Exports::CSV_SEMICOLON, $this->allFields()],
         ];
     }
 }
