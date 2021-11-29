@@ -2,14 +2,12 @@
 
 namespace App\Exports\Formats;
 
-use App\Exports\Contracts\ExportBase;
-
-class CSV extends ExportBase
+class CSVSemicolon extends \App\Exports\Contracts\ExportBase
 {
     public const EXT = '.csv';
 
     protected function getDelimiter(): string
     {
-        return ',';
+        return ';';
     }
 }

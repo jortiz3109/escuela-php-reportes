@@ -7,6 +7,7 @@ class Exports
     public const CSV = 'csv';
     public const XSLX = 'xlsx';
     public const TSV = 'tsv';
+    public const CSV_SEMICOLON = 'semicolon';
 
     public const SENDER_EMAIL = 'email';
     public const SENDER_SFTP = 'sftp';
@@ -20,5 +21,6 @@ class Exports
         self::XSLX,
         self::CSV,
         self::TSV,
+        self::CSV_SEMICOLON,
     ];
 }

@@ -17,6 +17,8 @@ class CreateReportJob implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
+    public $timeout = 1800;
+
     public function __construct(public Report $report)
     {
     }

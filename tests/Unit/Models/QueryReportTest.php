@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use App\Helpers\FieldsHelper;
 use App\Models\QueryReport;
 use Database\Seeders\DatabaseTestSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -104,7 +105,7 @@ class QueryReportTest extends TestCase
 
         $this->assertCount($expectCount, $reports);
         foreach ($fields as $field) {
-            $columnName = $field['table_name'] . '_' . $field['name'];
+            $columnName = FieldsHelper::getFieldName($field);
             if (is_array($field['value'])) {
                 $this->assertNotFalse(array_search($field['value'][0], array_column($reports, $columnName)));
                 $this->assertNotFalse(array_search($field['value'][1], array_column($reports, $columnName)));

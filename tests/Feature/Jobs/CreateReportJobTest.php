@@ -3,14 +3,13 @@
 namespace Tests\Feature\Jobs;
 
 use App\Constants\Exports;
-use App\Constants\Fields;
 use App\Jobs\CreateReportJob;
 use App\Models\Field;
 use App\Models\Report;
 use Carbon\Carbon;
 use Database\Seeders\DatabaseTestSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 use Tests\Concerns\HasFiltersProvider;
 use Tests\TestCase;
 
@@ -22,7 +21,6 @@ class CreateReportJobTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        Excel::fake();
         Carbon::setTestNow();
         $this->seed(DatabaseTestSeeder::class);
     }
@@ -42,18 +40,11 @@ class CreateReportJobTest extends TestCase
             $field['order'] = null;
             Field::factory()->create($field);
         }
-
-        Field::factory()->create([
-            'name' => 'name',
-            'table_name' => 'merchants',
-            'operator' => Fields::OPERATOR_EQ,
-            'value' => 'Merchant 1',
-            'order' => Fields::ORDER_DESC,
-            'report_id' => $report->id,
-        ]);
         CreateReportJob::dispatch($report);
 
-        Excel::assertQueued('reports' . ' ' . now()->toDateTimeString() . '.' . $extension);
+        $filename = 'reports/report_' . now()->timestamp . '.' . $extension;
+        $this->assertTrue(Storage::exists($filename));
+        Storage::delete($filename);
     }
 
     public function extensionProvider(): array
